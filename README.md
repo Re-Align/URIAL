@@ -1,10 +1,10 @@
 # URIAL: Untuned LLMs with Restyled In-context Alignment 
 
-This is part of the Re-Align project by AI2 Mosaic. Please find more information on our website: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).This repository focuses on the URIAL alignment method. 
+This is part of the Re-Align project by AI2 Mosaic. Please find more information on our website: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).
 
 URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three constant stylistic examples and a system prompt for achieving a comparable performance with SFT/RLHF.
 
-<img src="docs/intro.png" width="80%">
+<img src="docs/intro.png" width="80%" style="margin: auto">
 
 ## URIAL Prompts 
 
