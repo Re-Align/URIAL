@@ -133,12 +133,13 @@ just_eval \
         --output_file "result_dirs/just-eval_results/${run_name}.score_safety.chatgpt.json"  
 ```
 
-
+<!-- 
 ## Analyze with Token-distribution Analysis 
 
 👀 Code will be added here soon. Please stay tuned! 
 💻 Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
-  
+   -->
+   
 ## Citation 
 
 ```bibtex
