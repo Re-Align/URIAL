@@ -8,10 +8,9 @@ URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with 
 
 ## URIAL Prompts 
 
-
-### Illustration
+ 
 <details>
-<summary>Click here to see a figure to illustrate URIAL and other ICL Alignment methods.</summary>
+<summary> 🖼️ Click here to see a figure to illustrate URIAL and other ICL Alignment methods.</summary>
 <img src="https://allenai.github.io/re-align/images/urial_methods.png">
 </details>
 
@@ -57,12 +56,12 @@ python src/infer.py \
         --output_folder $output_dir
 ```
 
-Other supported models include:
+Supported models include:
 - `meta-llama/Llama-2-7b-hf`
 - `TheBloke/Llama-2-70B-GPTQ` with `--gptq` flag.
-- other similar models.
+- other similar models on huggingface.co
 
-More will come with the support of [vLLM](https://github.com/vllm-project/vllm). Please stay tuned!
+👀 More will come with the support of [vLLM](https://github.com/vllm-project/vllm). Please stay tuned!
 
 
 
@@ -137,8 +136,8 @@ just_eval \
 
 ## Analyze with Token-distribution Analysis 
 
-Code will be added here soon. Please stay tuned! 
-Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
+👀 Code will be added here soon. Please stay tuned! 
+💻 Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
   
 ## Citation 
 
