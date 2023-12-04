@@ -4,7 +4,7 @@ This is part of the Re-Align project by AI2 Mosaic. Please find more information
 
 URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three constant stylistic examples and a system prompt for achieving a comparable performance with SFT/RLHF.
 
-<img src="docs/intro.png" width="60%">
+<img src="docs/intro.png" width="80%">
 
 ## URIAL Prompts 
 
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 Below we show an example of how to run inference experiments with URIAL prompts on :
 - Base LLM: `mistralai/Mistral-7B-v0.1`
-- Dataset: `just_eval` -> [**re-align/just-eval-instruct** on 🤗 Hugging Face](https://huggingface.co/datasets/re-align/just-eval-instruct).
+- Dataset: `just_eval` -> [**re-align/just-eval-instruct**](https://huggingface.co/datasets/re-align/just-eval-instruct)  on 🤗 Hugging Face.
 
 ```bash
 version="inst_1k"
