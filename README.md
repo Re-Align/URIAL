@@ -1,4 +1,4 @@
-# URIAL: Untuned LLMs with Restyled In-context Alignment 
+# URIAL: Tuning-Free Alignment via In-Context Learning
 
 > This is part of the Re-Align project by AI2 Mosaic. Please find more information on our website: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).
 
@@ -139,7 +139,7 @@ just_eval \
 👀 Code will be added here soon. Please stay tuned! 
 💻 Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
    -->
-   
+
 ## Citation 
 
 ```bibtex
