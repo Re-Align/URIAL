@@ -4,7 +4,7 @@ This is part of the Re-Align project by AI2 Mosaic. Please find more information
 
 URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three constant stylistic examples and a system prompt for achieving a comparable performance with SFT/RLHF.
 
-![Intro](docs/intro.png)
+<img src="docs/intro.png" width="60%">
 
 ## URIAL Prompts 
 
