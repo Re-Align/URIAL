@@ -8,6 +8,15 @@ URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with 
 
 ## URIAL Prompts 
 
+
+### Illustration
+<details>
+<summary>Click here to see a figure to illustrate URIAL and other ICL Alignment methods.</summary>
+<img src="https://allenai.github.io/re-align/images/urial_methods.png">
+</details>
+
+
+### Content
 As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
 
 - `URIAL-main (K=3; 1k tokens)`  -> [`inst_1k.txt`](urial_prompts/inst_1k.txt)
