@@ -3,7 +3,7 @@ aiohttp==3.8.4
 aiosignal==1.3.1
 async-timeout==4.0.2
 attrs==23.1.0
-auto-gptq==0.4.2+cu118
+# auto-gptq==0.4.2+cu118
 certifi==2023.7.22
 charset-normalizer==3.3.0
 click==8.1.7
@@ -76,7 +76,6 @@ requests==2.31.0
 responses==0.18.0
 rouge==1.0.1
 safetensors==0.3.1
-seaborn==0.13.0
 sentencepiece==0.1.99
 six==1.16.0
 sympy==1.11.1

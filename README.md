@@ -1,7 +1,10 @@
 # URIAL: Untuned LLMs with Restyled In-context Alignment 
 
-## Abstract 
+This is part of the Re-Align project by AI2 Mosaic. Please find more information on our website: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).This repository focuses on the URIAL alignment method. 
 
+URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three constant stylistic examples and a system prompt for achieving a comparable performance with SFT/RLHF.
+
+![Intro](docs/intro.png)
 
 ## URIAL Prompts 
 
@@ -15,6 +18,14 @@ As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prom
 
 <!-- - [`Retrieval ICL`](urial_prompts/inst_only.txt) -->
 
+
+
+## Installation
+
+```bash
+conda create -n re_align python=3.10
+pip install -r requirements.txt
+```
 
 ## URIAL Inference
 
@@ -78,7 +89,9 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 
 ## Evaluation with Just-Eval 
 
-### Installation 
+Please find more details about our evaluation here: [https://github.com/Re-Align/just-eval](https://github.com/Re-Align/just-eval)
+
+### Installation of Just-Eval 
 ```
 pip install git+https://github.com/Re-Align/just-eval.git
 export OPENAI_API_KEY=<your secret key>
@@ -90,7 +103,7 @@ For example, if the output data is `result_dirs/urial/inst_1k/Mistral-7B-v0.1.js
 python src/scripts/reformat.py result_dirs/urial/inst_1k/Mistral-7B-v0.1.json
 ```
 
-### Run Multi-Aspect Scoring 
+### Run Scoring 
 ```bash
 to_eval_file="result_dirs/urial/inst_1k/Mistral-7B-v0.1.to_eval.json"
 run_name="Mistral-URIAL"
@@ -115,7 +128,8 @@ just_eval \
 
 ## Analyze with Token-distribution Analysis 
 
-Code is being refactored. Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
+Code will be added here soon. Please stay tuned! 
+Please look at the web demos here for now: [https://allenai.github.io/re-align/tds.html](https://allenai.github.io/re-align/tds.html)
   
 ## Citation 
 
