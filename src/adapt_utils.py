@@ -1,7 +1,6 @@
 import json 
 import os 
-import sys 
-from data.long_demos import demo_data, demo_data_short
+import sys  
 
 pure_inputs = None
 retrieve_data = None 
@@ -116,10 +115,6 @@ def preprocess(in_text, ind, args):
         if args.retrieve_data_path not in ["none", "random", "long"]: 
             item = retrieve_data[ind]
             rex = item["rex"]
-        elif args.retrieve_data_path == "random": 
-            rex = demo_data_short[:N]
-        elif args.retrieve_data_path == "long":
-            rex = demo_data[:N]
         elif args.retrieve_data_path == "none":
             for _ in range(N):
                 rex.append({"instruction":"[This is the placeholder for a user query.]", "input": "", "output": "[This is the placeholder for a helpful response to the above query.]"})

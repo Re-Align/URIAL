@@ -69,17 +69,14 @@ def main():
     output_args_file = output_results_file.replace(".json", f".args.json")
     with open(output_args_file, "w") as f:
         json.dump(args_dict, f, indent=2)
-    
-    
+     
             
     if args.data_name == "alpaca_eval":
         dataset = load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", split="eval")
     elif args.data_name == "lima":
         dataset = load_dataset("GAIR/lima", split="test")
     elif args.data_name == "just_eval":
-        dataset = load_dataset("yuchenlin/just-eval-instruct", split="test")
-    elif args.data_name == "just_red":
-        dataset = load_dataset("yuchenlin/just-eval-redteam", split="test")
+        dataset = load_dataset("re-align/just-eval-instruct", split="test") 
     else:
         with open(args.data_name) as f:
             dataset = json.load(f)
@@ -97,7 +94,7 @@ def main():
         elif args.data_name == "lima":
             in_text = item["conversations"][0]
             ref_text = "N/A"
-        elif args.data_name in ["just_eval", "just_red"]:
+        elif args.data_name in ["just_eval"]:
             in_text = item["instruction"]
             ref_text = "N/A"
         else:
