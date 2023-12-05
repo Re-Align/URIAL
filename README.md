@@ -10,7 +10,7 @@ URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with 
 
  
 <details>
-<summary> 🖼️ Click here to see a figure to illustrate URIAL and other ICL Alignment methods.</summary>
+<summary> 🖼️ Click here to see a figure for the illustration of URIAL and other tuning-free Alignment methods.</summary>
 <img src="https://allenai.github.io/re-align/images/urial_methods.png">
 </details>
 
