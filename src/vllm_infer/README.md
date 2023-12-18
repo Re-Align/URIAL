@@ -25,15 +25,21 @@ python src/vllm_infer/vllm_urial.py \
 
 
 ```bash 
+
+# python -m vllm.entrypoints.api_server \
+#         --download-dir /net/nfs/s2-research/llama2/ \
+#         --host 127.0.0.1 --port 2335 \
+#         --model mistralai/Mistral-7B-v0.1 --tensor-parallel-size 8
+
 python -m vllm.entrypoints.api_server \
         --download-dir /net/nfs/s2-research/llama2/ \
         --host 127.0.0.1 --port 2333 \
-        --model mistralai/Mixtral-8x7B-v0.1 --tensor-parallel-size 8
+        --model mistralai/Mixtral-8x7B-v0.1 --tensor-parallel-size 8 --dtype float
 
 python src/vllm_infer/vllm_urial.py \
     --data_name alpaca_eval \
     --vllm_url http://localhost:2333/generate \
     --model_name Mixtral-8x7B-v0.1 \
     --urial_name inst_help \
-    --top_p 1 --temperature 0
+    --top_p 1 --temperature 0  --repetition_penalty 1.1
 ```
