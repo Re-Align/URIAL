@@ -4,6 +4,7 @@
 conda create -n vllm python=3.10
 conda activate vllm
 pip install vllm
+pip install datasets
 
 
 python -m vllm.entrypoints.api_server \

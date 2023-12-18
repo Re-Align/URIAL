@@ -116,8 +116,8 @@ def save_outputs(args, outputs, pure_input_texts, metadata, filepath):
         for ind in range(len(outputs)):
             output_item = {}
             output_item["instruction"] = pure_input_texts[ind]
-            output_item["output"] = outputs[ind][0]
-            output_item["generator"] = args.model_name + "+URIAL=" + args.urial_name
+            output_item["output"] = outputs[ind][0].replace("```", " ").rstrip()
+            output_item["generator"] = args.model_name + "+URIAL=" + args.urial_name + f".p={args.top_p}.t={args.temperature}"
             output_item["dataset"] = metadata["dataset"][ind]
             formatted_outputs.append(output_item)
     
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     start_index = len(outputs)
     print(f"We skipped the first {start_index} examples")
     for ind, prompt in tqdm(enumerate(tqdm(urial_inputs[start_index:]))):
-        output = vllm_request(prompt=prompt, n=1, stop=["```\n\n\n# Query:"], max_tokens=2048)
+        output = vllm_request(prompt=prompt, n=1, stop=["# Query"], max_tokens=2048)
         outputs.append(output)
         if len(outputs) % 5 == 0:
             save_outputs(args, outputs, pure_input_texts, metadata, filepath)
