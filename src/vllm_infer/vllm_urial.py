@@ -134,7 +134,7 @@ if __name__ == "__main__":
     start_index = len(outputs)
     print(f"We skipped the first {start_index} examples")
     for ind, prompt in tqdm(enumerate(tqdm(urial_inputs[start_index:]))):
-        output = vllm_request(prompt=prompt, n=1, stop=["# Query"], max_tokens=2048, top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty)
+        output = vllm_request(url=args.vllm_url, prompt=prompt, n=1, stop=["# Query"], max_tokens=2048, top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty)
         outputs.append(output)
         # if len(outputs) % 2 == 0:
         save_outputs(args, outputs, pure_input_texts, metadata, filepath)
