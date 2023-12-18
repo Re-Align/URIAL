@@ -15,6 +15,7 @@ def parse_args():
     parser.add_argument('--urial_name', default="inst_help", type=str)
     parser.add_argument('--top_p',default=1, type=float)
     parser.add_argument('--temperature',default=0, type=float)
+    parser.add_argument('--repetition_penalty',default=1, type=float)
     
     return parser.parse_args()
 
@@ -65,19 +66,7 @@ def vllm_request(
 ) -> List[str]:
     """
     Request the evaluation prompt from the OpenAI API in chat format.
-    Args:
-        prompt (str): The encoded prompt.
-        messages (List[dict]): The messages.
-        model (str): The model to use.
-        engine (str): The engine to use.
-        temperature (float, optional): The temperature. Defaults to 0.7.
-        max_tokens (int, optional): The maximum number of tokens. Defaults to 800.
-        top_p (float, optional): The top p. Defaults to 0.95.
-        frequency_penalty (float, optional): The frequency penalty. Defaults to 0.
-        presence_penalty (float, optional): The presence penalty. Defaults to 0.
-        stop (List[str], optional): The stop. Defaults to None.
-    Returns:
-        List[str]: The list of generated evaluation prompts.
+    
     """
     # Call openai api to generate aspects
     assert prompt is not None  
@@ -117,7 +106,7 @@ def save_outputs(args, outputs, pure_input_texts, metadata, filepath):
             output_item = {}
             output_item["instruction"] = pure_input_texts[ind]
             output_item["output"] = outputs[ind][0].replace("```", " ").rstrip()
-            output_item["generator"] = args.model_name + "+URIAL=" + args.urial_name + f".p={args.top_p}.t={args.temperature}"
+            output_item["generator"] = args.model_name + "+URIAL=" + args.urial_name + f".p={args.top_p}.t={args.temperature}.r={args.repetition_penalty}"
             output_item["dataset"] = metadata["dataset"][ind]
             formatted_outputs.append(output_item)
     
@@ -127,7 +116,7 @@ def save_outputs(args, outputs, pure_input_texts, metadata, filepath):
 
 if __name__ == "__main__":
     args = parse_args()
-    filepath = f"vllm_outputs/{args.model_name}.URIAL={args.urial_name}.p={args.top_p}.t={args.temperature}.json" 
+    filepath = f"vllm_outputs/{args.model_name}.URIAL={args.urial_name}.p={args.top_p}.t={args.temperature}.r={args.repetition_penalty}.json" 
     
     id_strs, pure_input_texts, metadata = load_eval_data(args.data_name)
     urial_prompt = load_urial_prompt(args.urial_name)
@@ -145,10 +134,10 @@ if __name__ == "__main__":
     start_index = len(outputs)
     print(f"We skipped the first {start_index} examples")
     for ind, prompt in tqdm(enumerate(tqdm(urial_inputs[start_index:]))):
-        output = vllm_request(prompt=prompt, n=1, stop=["# Query"], max_tokens=2048)
+        output = vllm_request(prompt=prompt, n=1, stop=["# Query"], max_tokens=2048, top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty)
         outputs.append(output)
-        if len(outputs) % 5 == 0:
-            save_outputs(args, outputs, pure_input_texts, metadata, filepath)
+        # if len(outputs) % 2 == 0:
+        save_outputs(args, outputs, pure_input_texts, metadata, filepath)
     save_outputs(args, outputs, pure_input_texts, metadata, filepath)
     # args.model_name = args.model_name.split("/")[1]
     
