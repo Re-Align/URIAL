@@ -32,6 +32,7 @@ As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prom
 
 ```bash
 conda create -n re_align python=3.10
+conda activate re_align
 pip install -r requirements.txt
 ```
 

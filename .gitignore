@@ -1,3 +1,4 @@
+vllm_outputs/
 *_results/
 result_dirs/
 result_dirs_old/
