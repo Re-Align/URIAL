@@ -6,6 +6,7 @@ conda activate vllm
 pip install vllm
 pip install datasets
 
+# https://docs.vllm.ai/en/latest/models/engine_args.html
 
 python -m vllm.entrypoints.api_server \
         --download-dir /net/nfs/s2-research/llama2/ \
@@ -16,6 +17,6 @@ python -m vllm.entrypoints.api_server \
 python src/vllm_infer/vllm_urial.py \
     --data_name alpaca_eval \
     --model_name Llama-2-70b-hf \
-    --urial_name inst_help \
-    --top_p 1 --temperature 0
+    --urial_name inst_1k \
+    --top_p 1 --temperature 0 --repetition_penalty 1.1
 ```
