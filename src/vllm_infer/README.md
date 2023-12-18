@@ -11,7 +11,7 @@ pip install datasets
 python -m vllm.entrypoints.api_server \
         --download-dir /net/nfs/s2-research/llama2/ \
         --host 127.0.0.1 --port 2333 \
-        --model meta-llama/Llama-2-70b-hf --tensor-parallel-size 4
+        --model meta-llama/Llama-2-70b-hf --tensor-parallel-size 2 --dtype bfloat16 
 
 
 python src/vllm_infer/vllm_urial.py \
@@ -19,4 +19,11 @@ python src/vllm_infer/vllm_urial.py \
     --model_name Llama-2-70b-hf \
     --urial_name inst_1k \
     --top_p 1 --temperature 0 --repetition_penalty 1.1
+
+
+python src/vllm_infer/vllm_urial.py \
+    --data_name alpaca_eval \
+    --model_name Llama-2-70b-hf \
+    --urial_name inst_1k \
+    --top_p 0.9 --temperature 0.7 --repetition_penalty 1.1
 ```
