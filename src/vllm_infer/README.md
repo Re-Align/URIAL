@@ -79,10 +79,16 @@ CUDA_VISIBLE_DEVICES=2,3 python src/vllm_infer/vllm_urial.py \
 
 
 ```bash 
+
+# python -m vllm.entrypoints.api_server \
+#         --download-dir /net/nfs/s2-research/llama2/ \
+#         --host 127.0.0.1 --port 2335 \
+#         --model mistralai/Mistral-7B-v0.1 --tensor-parallel-size 8
+
 python -m vllm.entrypoints.api_server \
         --download-dir /net/nfs/s2-research/llama2/ \
         --host 127.0.0.1 --port 2333 \
-        --model mistralai/Mixtral-8x7B-v0.1 --tensor-parallel-size 8
+        --model mistralai/Mixtral-8x7B-v0.1 --tensor-parallel-size 8 --dtype float
 
 CUDA_VISIBLE_DEVICES=2,3 python -m vllm.entrypoints.api_server \
         --download-dir /net/nfs/s2-research/llama2/ \
