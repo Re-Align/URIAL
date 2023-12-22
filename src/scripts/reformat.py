@@ -85,7 +85,8 @@ with open(result_file, "r") as f:
 #     results[item["id"]] = item 
 results = sorted(load_results, key=lambda x: int(x["id"]))
 
-eval_set = load_dataset("re-align/just-eval-instruct", split="test")
+# eval_set = load_dataset("re-align/just-eval-instruct", split="test")
+eval_set = load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", split="eval")
 
 
 outputs = []
