@@ -2,7 +2,7 @@
 
 
 ```bash 
-version="inst_1k"
+version="inst_help"
 output_dir="result_dirs/alpaca_eval/urial-${version}/"
 mkdir -p $output_dir
 
