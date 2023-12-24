@@ -101,7 +101,7 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 Please find more details about our evaluation here: [https://github.com/Re-Align/just-eval](https://github.com/Re-Align/just-eval)
 
 ### Installation of Just-Eval 
-```
+```bash
 pip install git+https://github.com/Re-Align/just-eval.git
 export OPENAI_API_KEY=<your secret key>
 ```

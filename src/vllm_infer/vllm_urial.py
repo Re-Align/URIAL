@@ -19,6 +19,7 @@ def parse_args():
     parser.add_argument('--model_name', default="meta-llama/Llama-2-70b-hf", type=str)
     parser.add_argument('--tensor_parallel_size', type=int, default=2)
     parser.add_argument('--dtype', type=str, default="auto")
+    parser.add_argument('--tokenizer_mode', type=str, default="auto") 
     parser.add_argument('--data_name', default="alpaca_eval", type=str) 
     parser.add_argument('--urial_name', default="none", type=str)
     parser.add_argument('--batch_size', default=1, type=int)
@@ -70,6 +71,8 @@ def apply_template(pure_input_texts, model_name):
             prompt_url = "https://raw.githubusercontent.com/tatsu-lab/alpaca_eval/main/src/alpaca_eval/models_configs/tulu-2-dpo-70b/prompt.txt"
         elif "llama" in model_name.lower() and "chat" in model_name.lower():
             prompt_url = "https://raw.githubusercontent.com/tatsu-lab/alpaca_eval/main/src/alpaca_eval/models_configs/llama-2-7b-chat-hf/prompt.txt"
+        elif "yi" in model_name.lower() and "chat" in model_name.lower():
+            prompt_url = "https://raw.githubusercontent.com/tatsu-lab/alpaca_eval/main/src/alpaca_eval/models_configs/Yi-34B-Chat/prompt.txt"
         prompt = urllib.request.urlopen(prompt_url).read().decode('utf-8')
         model_intput = prompt.replace("{instruction}", instruction)
         model_inputs.append(model_intput)
@@ -163,14 +166,17 @@ if __name__ == "__main__":
     # Model loading 
     if args.vllm_mode == "local":
         from vllm import LLM, SamplingParams # when running locally 
-        llm = LLM(model=args.model_name, tokenizer=args.model_name, tokenizer_mode="auto", tensor_parallel_size=args.tensor_parallel_size, download_dir=args.download_dir, dtype=args.dtype)        
+        llm = LLM(model=args.model_name, tokenizer=args.model_name, tensor_parallel_size=args.tensor_parallel_size, download_dir=args.download_dir, dtype=args.dtype, tokenizer_mode=args.tokenizer_mode)        
         
     # Decide the output filepath 
     if "/" in args.model_name:
         args.model_name = args.model_name.split("/")[1]   
     
     os.system(f"mkdir -p {args.output_folder}")
-    filepath = f"{args.output_folder}/{args.model_name}.URIAL={args.urial_name}.p={args.top_p}.t={args.temperature}.r={args.repetition_penalty}.json" 
+    if args.urial_name != "none":
+        filepath = f"{args.output_folder}/{args.model_name}.URIAL={args.urial_name}.p={args.top_p}.t={args.temperature}.r={args.repetition_penalty}.json" 
+    else:
+        filepath = f"{args.output_folder}/{args.model_name}.p={args.top_p}.t={args.temperature}.r={args.repetition_penalty}.json"
     
     
     # Data loading 
@@ -195,8 +201,10 @@ if __name__ == "__main__":
     
     stop_words = []
     if args.urial_name != "none":
-        stop_words = ["# Query"]
-    
+        stop_words = ["# Query"]  
+    stop_token_ids = []
+    if "yi-" in args.model_name.lower() and "chat" in args.model_name.lower():
+        stop_token_ids = [7]
     
     # Run the inference 
     if args.vllm_mode == "api":
@@ -206,7 +214,7 @@ if __name__ == "__main__":
             # if len(outputs) % 2 == 0:
             save_outputs(args, outputs, pure_input_texts, metadata, filepath)
     elif args.vllm_mode == "local":
-        sampling_params = SamplingParams(top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty, max_tokens=args.max_tokens, stop=stop_words)
+        sampling_params = SamplingParams(top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty, max_tokens=args.max_tokens, stop=stop_words, stop_token_ids=stop_token_ids)
         todo_inputs = model_inputs[start_index:]
         for cur_id in tqdm(range(0, len(todo_inputs), args.batch_size), desc="Batching"):
             batch_inputs = todo_inputs[cur_id:cur_id+args.batch_size]
