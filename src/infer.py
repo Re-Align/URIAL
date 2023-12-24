@@ -72,7 +72,7 @@ def main():
      
             
     if args.data_name == "alpaca_eval":
-        dataset = load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", split="eval")
+        dataset = load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", split="eval") # , download_mode="force_redownload"
     elif args.data_name == "lima":
         dataset = load_dataset("GAIR/lima", split="test")
     elif args.data_name == "just_eval":
