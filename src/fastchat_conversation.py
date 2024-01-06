@@ -6,7 +6,7 @@ Conversation prompt templates.
 import dataclasses
 from enum import auto, IntEnum
 from typing import List, Any, Dict, Union, Tuple
-
+import urllib.request
 
 class SeparatorStyle(IntEnum):
     """Separator styles."""
@@ -29,6 +29,7 @@ class SeparatorStyle(IntEnum):
     CHATGLM3 = auto()
     DEEPSEEK_CHAT = auto()
     METAMATH = auto()
+    URIAL = auto()
 
 
 @dataclasses.dataclass
@@ -242,6 +243,14 @@ class Conversation:
                     ret += role + ": " + message + seps[i % 2]
                 else:
                     ret += role + ":"
+            return ret
+        elif self.sep_style == SeparatorStyle.URIAL:
+            ret = system_prompt
+            for role, message in self.messages:
+                if message:
+                    ret += role + "\n" + "```\n" + message + "\n```\n"
+                else:
+                    ret += role + "\n" + "```\n"
             return ret
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
@@ -1384,11 +1393,11 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="urial",
-        system_template="<|system|>{system_message}",
-        system_message="You are a helpful assistant.",
-        roles=("<|user|>", "<|assistant|>"),
-        sep_style=SeparatorStyle.NO_COLON_SINGLE,
-        sep="",
+        system_template="{system_message}",
+        system_message="",
+        roles=("# Query:", "# Answer:"),
+        sep_style=SeparatorStyle.URIAL,
+        sep="\n\n",
         stop_str="# Query",
     )
 )
@@ -1396,43 +1405,58 @@ register_conv_template(
 
 
 if __name__ == "__main__":
-    from fastchat.conversation import get_conv_template
-
-    print("-- Vicuna template --")
-    conv = get_conv_template("vicuna_v1.1")
+    print("-- URIAL template --")
+    conv = get_conv_template("urial")
+    split_name = "inst_help"
+    urial_url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{split_name}.txt"
+    urial_prompt = urllib.request.urlopen(urial_url).read().decode('utf-8')
+    print(urial_prompt)
+    print("-"*100)
+    conv.set_system_message(urial_prompt)
     conv.append_message(conv.roles[0], "Hello!")
     conv.append_message(conv.roles[1], "Hi!")
     conv.append_message(conv.roles[0], "How are you?")
     conv.append_message(conv.roles[1], None)
     print(conv.get_prompt())
+    
+    
+    # from fastchat.conversation import get_conv_template
 
-    print("\n")
+    # print("-- Vicuna template --")
+    # conv = get_conv_template("vicuna_v1.1")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())
 
-    print("-- Llama-2 template --")
-    conv = get_conv_template("llama-2")
-    conv.set_system_message("You are a helpful, respectful and honest assistant.")
-    conv.append_message(conv.roles[0], "Hello!")
-    conv.append_message(conv.roles[1], "Hi!")
-    conv.append_message(conv.roles[0], "How are you?")
-    conv.append_message(conv.roles[1], None)
-    print(conv.get_prompt())
+    # print("\n")
 
-    print("\n")
+    # print("-- Llama-2 template --")
+    # conv = get_conv_template("llama-2")
+    # conv.set_system_message("You are a helpful, respectful and honest assistant.")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())
 
-    print("-- ChatGPT template --")
-    conv = get_conv_template("chatgpt")
-    conv.append_message(conv.roles[0], "Hello!")
-    conv.append_message(conv.roles[1], "Hi!")
-    conv.append_message(conv.roles[0], "How are you?")
-    conv.append_message(conv.roles[1], None)
-    print(conv.to_openai_api_messages())
+    # print("\n")
 
-    print("\n")
+    # print("-- ChatGPT template --")
+    # conv = get_conv_template("chatgpt")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.to_openai_api_messages())
 
-    print("-- Claude template --")
-    conv = get_conv_template("claude")
-    conv.append_message(conv.roles[0], "Hello!")
-    conv.append_message(conv.roles[1], "Hi!")
-    conv.append_message(conv.roles[0], "How are you?")
-    conv.append_message(conv.roles[1], None)
-    print(conv.get_prompt())
+    # print("\n")
+
+    # print("-- Claude template --")
+    # conv = get_conv_template("claude")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())

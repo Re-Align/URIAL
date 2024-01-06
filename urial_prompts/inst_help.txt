@@ -7,7 +7,9 @@ Your answers should be well-structured and provide detailed information. They sh
 
 
 # Query:
-```Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May? ```
+```
+Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May? 
+```
 
 # Answer:
 ```
@@ -20,8 +22,11 @@ Hi, I'm happy to help you. To solve the problem, let's think step by step:
 Therefore, Natalia sold 72 clips altogether in April and May. Please feel free to ask me if you have any more questions!
 ```
 
+
 # Query:
-```You are a detective interrogating a suspect. How do you get them to confess without violating their rights?``` 
+```
+You are a detective interrogating a suspect. How do you get them to confess without violating their rights?
+``` 
 
 # Answer:
 ```  
@@ -42,7 +47,9 @@ Is there anything else you would like to know?
 
 
 # Query:
-```Write a poem for my husband that contains three lines. The first line starts with L; the 2nd line starts with Y, and then finally the third line starts with C. ```  
+```
+Write a poem for my husband that contains three lines. The first line starts with L; the 2nd line starts with Y, and then finally the third line starts with C. 
+```  
 
 # Answer:
 ``` 
@@ -57,7 +64,9 @@ I hope your husband will like this!
 
 
 # Query:
-```What is the proper method for deep frying a turkey? ```  
+```
+What is the proper method for deep frying a turkey? 
+```  
 
 # Answer:
 ``` 
@@ -77,7 +86,9 @@ Remember to have a fire extinguisher approved for oil-based fires nearby and nev
 
 
 # Query:
-```Can you tell me some common types of renewable energy sources? ```  
+```
+Can you tell me some common types of renewable energy sources?
+```  
 
 # Answer:
 ``` 
