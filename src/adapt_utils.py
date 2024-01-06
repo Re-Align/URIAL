@@ -81,7 +81,6 @@ def preprocess(in_text, ind, args):
         in_text = f"{urial_prefix}\n# Query:\n```{in_text}```\n\n# Answer:\n```\n"
         return in_text
     
-    
     elif args.adapt_mode == "restyle":
         if retrieve_data is None and os.path.exists(args.retrieve_data_path):
             with open(args.retrieve_data_path) as f:
@@ -133,8 +132,6 @@ def preprocess(in_text, ind, args):
     
     if args.adapt_mode == "retrieve":
         return in_text
-    elif args.adapt_mode == "retrieve+prefix":
-        return in_text 
     return in_text
 
 

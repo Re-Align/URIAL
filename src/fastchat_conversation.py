@@ -28,7 +28,7 @@ class SeparatorStyle(IntEnum):
     CHATGLM3 = auto()
     DEEPSEEK_CHAT = auto()
     METAMATH = auto()
-    URIAL = auto()
+    URIAL = auto() 
 
 
 @dataclasses.dataclass
@@ -246,16 +246,14 @@ class Conversation:
         elif self.sep_style == SeparatorStyle.URIAL:
             ret = system_prompt
             for role, message in self.messages:
-                if role == self.roles[0]: 
-                    ret += "\n\n"
-                else:
-                    ret += "\n"
+                # if role == self.roles[0]: 
+                ret += "\n\n"
+                # else:
+                #     ret += "\n"
                 if message:
-                    ret += role + "\n" +  message + "\n\n"
+                    ret += role + "\n" + self.sep + "\n"  + message  + "\n"+ self.sep2 + "\n"
                 else:
-                    if role == self.roles[0]: 
-                        ret += "\n"
-                    ret += role + "\n"
+                    ret += role + "\n" + self.sep + "\n" 
             return ret
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
@@ -1402,7 +1400,8 @@ register_conv_template(
         system_message="",
         roles=("# Query:", "# Answer:"),
         sep_style=SeparatorStyle.URIAL,
-        sep="\n\n",
+        # sep="```", sep2="```",
+        sep="", sep2="",
         stop_str="# Query",
     )
 )
@@ -1413,8 +1412,9 @@ if __name__ == "__main__":
     from datasets import load_dataset
     print("-- URIAL template --")
     conv = get_conv_template("urial")
-    urial = "inst_help_v2" 
-    url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+    urial = "inst_1k_v3" 
+    # url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+    url = f"urial_prompts/{urial}.txt"
     print(f"Loading URIAL prompt from {url}")
     dataset = load_dataset("text", data_files=url, split="train", sample_by="document", download_mode="force_redownload")
     urial_prompt = dataset["text"][0]
@@ -1425,6 +1425,7 @@ if __name__ == "__main__":
     conv.append_message(conv.roles[1], "Hi!")
     conv.append_message(conv.roles[0], "How are you?")
     conv.append_message(conv.roles[1], None)
+    print([conv.get_prompt()])
     print(conv.get_prompt())
     
     

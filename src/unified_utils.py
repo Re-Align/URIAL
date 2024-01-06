@@ -17,7 +17,8 @@ import json
 def apply_template(chat_history, model_name, urial=None):
     model_inputs = [] 
     if urial:
-        url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+        # url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+        url = f"urial_prompts/{urial}.txt"
         print(f"Loading URIAL prompt from {url}")
         dataset = load_dataset("text", data_files=url, split="train", sample_by="document", download_mode="force_redownload")
         urial_prompt = dataset["text"][0]
@@ -63,6 +64,15 @@ def load_eval_data(args, data_name=None, model_name=None):
     elif data_name == "just_eval":
         dataset = load_dataset("re-align/just-eval-instruct", split="test") 
         metadata = {"dataset": [], "source_id": []}
+    elif data_name == "mt-bench":
+        dataset = load_dataset("json", data_files="https://huggingface.co/spaces/lmsys/mt-bench/raw/main/data/mt_bench/question.jsonl", split="train")
+        metadata = {"question_id": [], "category": []}        
+        if args.mt_turn == 2:
+            with open(args.mt_turn1_result, "r") as f:
+                mt_turn1_result = json.load(f)
+            id_to_turn1_result = {}
+            for item in mt_turn1_result:
+                id_to_turn1_result[item["question_id"]] = item["turn1_output"]
     elif data_name  == "commongen":
         dataset = load_dataset("allenai/commongen_lite", split="train") 
         metadata = {"id": [], "concept_set": []}
@@ -74,6 +84,15 @@ def load_eval_data(args, data_name=None, model_name=None):
             in_text = item["instruction"]    
             id_strs.append(item.get("id", str(ind)))
             chat_history.append([in_text])
+        elif data_name == "mt-bench":
+            if args.mt_turn == 1:
+                chat_history.append([item["turns"][0]])
+            elif args.mt_turn == 2:
+                chat_history.append([item["turns"][0], 
+                                     id_to_turn1_result[item["question_id"]], 
+                                     item["turns"][1]]) 
+            else:
+                raise ValueError("mt_turn should be 1 or 2")
         for key in metadata: 
             metadata[key].append(item[key])
     print("start applying template")
@@ -82,13 +101,8 @@ def load_eval_data(args, data_name=None, model_name=None):
 
 
 
-def clear_output(output, model_name):
-    # if "tulu" in model_name.lower() or "zephyr" in model_name.lower():
-    #     output = output.replace("<|assistant|>\n", "")
-    pass
-    if "llama-2-7b" in model_name.lower():
-        if "\n\n" in output:
-            output = output[output.index("\n\n"):].strip()
+def clear_output(output, model_name): 
+    pass 
     return output
 
 
@@ -113,6 +127,16 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
             output_item["dataset"] = metadata["dataset"][ind]
             output_item["source_id"] = metadata["source_id"][ind]
             output_item["datasplit"] = "just_eval"
+            output_item["model_input"] = model_inputs[ind]
+            formatted_outputs.append(output_item)
+    elif args.data_name == "mt-bench":
+        for ind in range(len(outputs)):
+            output_item = {}
+            output_item["question_id"] = metadata["question_id"][ind]
+            output_item["category"] = metadata["category"][ind]
+            output_item[f"turn{args.mt_turn}_output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
+            output_item["model_id"] = args.model_name
+            output_item["turn_id"] = args.mt_turn
             output_item["model_input"] = model_inputs[ind]
             formatted_outputs.append(output_item)
     with open(filepath, "w") as f:
