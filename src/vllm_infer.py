@@ -16,8 +16,9 @@ def parse_args():
     parser.add_argument('--output_folder', default="vllm_outputs", type=str)
     parser.add_argument('--download_dir', default=None, type=str)    
     parser.add_argument('--model_name', default=None, type=str)
+    parser.add_argument('--urial', default=None, type=str)
     parser.add_argument('--tokenizer_name', default="auto", type=str)
-    parser.add_argument('--tensor_parallel_size', type=int, default=2)
+    parser.add_argument('--tensor_parallel_size', type=int, default=1)
     parser.add_argument('--dtype', type=str, default="auto")
     parser.add_argument('--tokenizer_mode', type=str, default="auto") 
     parser.add_argument('--data_name', default="alpaca_eval", type=str) 
@@ -34,9 +35,7 @@ def parse_args():
  
 
 if __name__ == "__main__":
-    args = parse_args()    
-    
-    
+    args = parse_args()     
     
     # Load the model
     print("loading model!")
@@ -73,9 +72,7 @@ if __name__ == "__main__":
     
     
     # speical handling
-    stop_words = []
-    if args.data_name == "commongen":
-        stop_words = ["."]
+    stop_words = [] 
     stop_token_ids = []
     if "yi-" in args.model_name.lower() and "chat" in args.model_name.lower():
         stop_token_ids = [7]
@@ -107,7 +104,6 @@ if __name__ == "__main__":
         def api(**kwargs):
             result = openai_chat_request(**kwargs) 
             return result
-        
          
         for cur_id in tqdm(range(0, len(todo_inputs)), desc=f"Generating {args.model_name} from {args.start_index} to {args.end_index}"):
             input_text = todo_inputs[cur_id] 
@@ -118,9 +114,7 @@ if __name__ == "__main__":
                 "max_tokens": args.max_tokens,
                 "stop": stop_words,
             }  
-            result = api(**openai_args)
-            if args.data_name == "commongen":
-                result = [r+"." for r in result]
+            result = api(**openai_args) 
             outputs.append(result) 
             save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, filepath) 
     

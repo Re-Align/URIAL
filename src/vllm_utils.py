@@ -8,18 +8,24 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )  # for exponential backoff
-
-
-
+ 
 from datasets import load_dataset
 from tqdm import tqdm
 from fastchat_conversation import get_conv_template
-import json 
+import json   
 
-def apply_template(chat_history, model_name):
+def apply_template(chat_history, model_name, urial=None):
     model_inputs = [] 
+    if urial:
+        url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+        print(f"Loading URIAL prompt from {url}")
+        dataset = load_dataset("text", data_files=url, split="train", sample_by="document")
+        urial_prompt = dataset["text"][0]
     for chats in tqdm(chat_history, desc="Applying template", disable=True):
-        if "tulu" in model_name.lower():
+        if urial:
+            conv = get_conv_template("urial")
+            conv.set_system_message(urial_prompt)
+        elif "tulu" in model_name.lower():
             conv = get_conv_template("tulu")
         elif "zephyr" in model_name.lower():
             conv = get_conv_template("zephyr")
@@ -42,7 +48,77 @@ def apply_template(chat_history, model_name):
         model_inputs.append(conv.get_prompt())
     return model_inputs
 
+ 
+def load_eval_data(args, data_name=None, model_name=None):
+    if data_name is None:
+        data_name = args.data_name
+    if model_name is None:
+        model_name = args.model_name    
+    chat_history = []
+    id_strs = []
+    metadata = {}
+    if data_name == "alpaca_eval":
+        dataset = load_dataset("tatsu-lab/alpaca_eval", "alpaca_eval", split="eval")
+        metadata = {"dataset": []}
+    elif data_name == "just_eval":
+        dataset = load_dataset("re-align/just-eval-instruct", split="test") 
+        metadata = {"dataset": [], "source_id": []}
+    elif data_name  == "commongen":
+        dataset = load_dataset("allenai/commongen_lite", split="train") 
+        metadata = {"id": [], "concept_set": []}
+    else:
+        print("ERROR: data_name not supported")
+     
+    for ind, item in enumerate(dataset):
+        if data_name in ["alpaca_eval", "just_eval", "commongen"]:
+            in_text = item["instruction"]    
+            id_strs.append(item.get("id", str(ind)))
+            chat_history.append([in_text])
+        for key in metadata: 
+            metadata[key].append(item[key])
+    print("start applying template")
+    model_inputs = apply_template(chat_history, model_name, urial=args.urial)
+    return id_strs, chat_history, model_inputs, metadata
 
+
+
+def clear_output(output, model_name):
+    # if "tulu" in model_name.lower() or "zephyr" in model_name.lower():
+    #     output = output.replace("<|assistant|>\n", "")
+    pass
+    if "llama-2-7b" in model_name.lower():
+        if "\n\n" in output:
+            output = output[output.index("\n\n"):].strip()
+    return output
+
+
+def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, filepath):
+    formatted_outputs = []
+    if args.data_name == "alpaca_eval":
+        for ind in range(len(outputs)):
+            output_item = {}
+            output_item["instruction"] = chat_history[ind][0]
+            output_item["output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
+            output_item["generator"] = args.model_name
+            output_item["dataset"] = metadata["dataset"][ind]
+            output_item["model_input"] = model_inputs[ind]
+            formatted_outputs.append(output_item)
+    elif args.data_name == "just_eval":
+        for ind in range(len(outputs)):
+            output_item = {}
+            output_item["id"] = ind
+            output_item["instruction"] = chat_history[ind][0]
+            output_item["output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
+            output_item["generator"] = args.model_name
+            output_item["dataset"] = metadata["dataset"][ind]
+            output_item["source_id"] = metadata["source_id"][ind]
+            output_item["datasplit"] = "just_eval"
+            output_item["model_input"] = model_inputs[ind]
+            formatted_outputs.append(output_item)
+    with open(filepath, "w") as f:
+        json.dump(formatted_outputs, f, indent=2)
+        
+ 
 def retry_handler(retry_limit=10):
     """
         This is an error handler for requests to OpenAI API.

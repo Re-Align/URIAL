@@ -6,7 +6,6 @@ Conversation prompt templates.
 import dataclasses
 from enum import auto, IntEnum
 from typing import List, Any, Dict, Union, Tuple
-import urllib.request
 
 class SeparatorStyle(IntEnum):
     """Separator styles."""
@@ -247,9 +246,15 @@ class Conversation:
         elif self.sep_style == SeparatorStyle.URIAL:
             ret = system_prompt
             for role, message in self.messages:
+                if role == self.roles[0]: 
+                    ret += "\n\n"
+                else:
+                    ret += "\n"
                 if message:
                     ret += role + "\n" + "```\n" + message + "\n```\n"
                 else:
+                    if role == self.roles[0]: 
+                        ret += "\n"
                     ret += role + "\n" + "```\n"
             return ret
         else:
