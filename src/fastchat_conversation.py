@@ -251,11 +251,11 @@ class Conversation:
                 else:
                     ret += "\n"
                 if message:
-                    ret += role + "\n" + "```\n" + message + "\n```\n"
+                    ret += role + "\n" +  message + "\n\n"
                 else:
                     if role == self.roles[0]: 
                         ret += "\n"
-                    ret += role + "\n" + "```\n"
+                    ret += role + "\n"
             return ret
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
@@ -1410,13 +1410,16 @@ register_conv_template(
 
 
 if __name__ == "__main__":
+    from datasets import load_dataset
     print("-- URIAL template --")
     conv = get_conv_template("urial")
-    split_name = "inst_help"
-    urial_url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{split_name}.txt"
-    urial_prompt = urllib.request.urlopen(urial_url).read().decode('utf-8')
-    print(urial_prompt)
-    print("-"*100)
+    urial = "inst_help_v2" 
+    url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
+    print(f"Loading URIAL prompt from {url}")
+    dataset = load_dataset("text", data_files=url, split="train", sample_by="document", download_mode="force_redownload")
+    urial_prompt = dataset["text"][0]
+    # print(urial_prompt)
+    # print("-"*100)
     conv.set_system_message(urial_prompt)
     conv.append_message(conv.roles[0], "Hello!")
     conv.append_message(conv.roles[1], "Hi!")

@@ -19,7 +19,7 @@ def apply_template(chat_history, model_name, urial=None):
     if urial:
         url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
         print(f"Loading URIAL prompt from {url}")
-        dataset = load_dataset("text", data_files=url, split="train", sample_by="document")
+        dataset = load_dataset("text", data_files=url, split="train", sample_by="document", download_mode="force_redownload")
         urial_prompt = dataset["text"][0]
     for chats in tqdm(chat_history, desc="Applying template", disable=True):
         if urial:
