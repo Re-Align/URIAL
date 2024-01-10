@@ -3,10 +3,10 @@ import sys
 import random, string
 import os 
 
-turn1_path = "result_dirs/mt-bench/vllm_urial-inst_help_v2/rp=1.15/Llama-2-70b-hf.turn1.json"
-turn2_path = "result_dirs/mt-bench/vllm_urial-inst_help_v2/rp=1.15/Llama-2-70b-hf.turn2.json"
+turn1_path = "result_dirs/mt-bench/vllm_urial-inst_help_v2/rp=1.15/Mixtral-8x7B-v0.1.turn1.json"
+turn2_path = "result_dirs/mt-bench/vllm_urial-inst_help_v2/rp=1.15/Mixtral-8x7B-v0.1.turn2.json"
 output_folder = "result_dirs/mt-bench/vllm_urial-inst_help_v2/rp=1.15/"
-model_id = "Llama-2-70b-hf-URIAL"
+model_id = "Mixtral-8x7B-v0.1-URIAL"
 turn1_results = json.load(open(turn1_path))
 turn2_results = json.load(open(turn2_path))
 
@@ -35,5 +35,7 @@ with open(f"{output_folder}/{model_id}.jsonl", "w") as f:
 
 # copy the file to `/home/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/`
 os.system(f"cp {output_folder}/{model_id}.jsonl /home/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/")
+
+print(f"python gen_judgment.py --model-list {model_id} --parallel 4")
     
 
