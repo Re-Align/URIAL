@@ -1395,7 +1395,7 @@ register_conv_template(
 # Reference: https://github.com/Re-Align/URIAL/
 register_conv_template(
     Conversation(
-        name="urial",
+        name="urial_v1",
         system_template="{system_message}",
         system_message="",
         roles=("# Query:", "# Answer:"),
@@ -1403,6 +1403,34 @@ register_conv_template(
         # sep="```", sep2="```",
         sep="", sep2="",
         stop_str="# Query",
+    )
+)
+
+
+register_conv_template(
+    Conversation(
+        name="urial", # v3 and v5
+        system_template="{system_message}",
+        system_message="",
+        roles=("# User:", "# Assistant:"),
+        sep_style=SeparatorStyle.URIAL,
+        # sep="```", sep2="```",
+        sep="", sep2="",
+        stop_str="# User",
+    )
+)
+
+
+register_conv_template(
+    Conversation(
+        name="urial_v4", # v4
+        system_template="{system_message}",
+        system_message="",
+        roles=("User:", "Assistant:"),
+        sep_style=SeparatorStyle.URIAL,
+        # sep="```", sep2="```",
+        sep="", sep2="",
+        stop_str="User:",
     )
 )
 

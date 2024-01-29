@@ -28,6 +28,7 @@ def parse_args():
     parser.add_argument('--mt_turn1_result', default=None, type=str)
     
     parser.add_argument('--batch_size', default=1, type=int)
+    parser.add_argument('--num_outputs', default=1, type=int)
     parser.add_argument('--top_p',default=1, type=float)
     parser.add_argument('--temperature',default=0, type=float)
     parser.add_argument('--repetition_penalty',default=1, type=float)
@@ -92,7 +93,7 @@ if __name__ == "__main__":
     stop_words = []
     include_stop_str_in_output = True  
     if args.urial is not None:
-        stop_words = ["# Query"]
+        stop_words = ["# Query", "# User", "User:"]
         include_stop_str_in_output = False
     stop_token_ids = []
     if "yi-" in args.model_name.lower() and "chat" in args.model_name.lower():
@@ -105,7 +106,7 @@ if __name__ == "__main__":
         with open(filepath) as f:
             formatted_outputs = json.load(f)
         for output_item in formatted_outputs:
-            outputs.append([output_item["output"]])
+            outputs.append([output_item["output"]] if type(output_item["output"]) == str else output_item["output"])
     num_skipped = len(outputs)
     print(f"We skipped the first {num_skipped} examples")
     
@@ -114,11 +115,11 @@ if __name__ == "__main__":
     
     if args.engine == "vllm":
         sampling_params = SamplingParams(top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty, max_tokens=args.max_tokens, 
-                                         stop=stop_words, stop_token_ids=stop_token_ids, include_stop_str_in_output=include_stop_str_in_output)
+                                         stop=stop_words, stop_token_ids=stop_token_ids, include_stop_str_in_output=include_stop_str_in_output, n=args.num_outputs)
         for cur_id in tqdm(range(0, len(todo_inputs), args.batch_size), desc=f"Generating {args.model_name} from {args.start_index} to {args.end_index}"):
             batch_inputs = todo_inputs[cur_id:cur_id+args.batch_size]
             batch_outputs = llm.generate(batch_inputs, sampling_params, use_tqdm=False)
-            outputs.extend([[x.outputs[0].text] for x in batch_outputs]) # TODO: enbale multiple generation 
+            outputs.extend([[o.text for o in x.outputs] for x in batch_outputs]) # TODO: enbale multiple generation 
             save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, filepath)
         save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, filepath)
         
@@ -126,7 +127,7 @@ if __name__ == "__main__":
         for cur_id in tqdm(range(0, len(todo_inputs), args.batch_size), desc=f"Generating {args.model_name} from {args.start_index} to {args.end_index}"):
             batch_inputs = todo_inputs[cur_id:cur_id+args.batch_size]
             sampling_params = {
-                "do_sample": False,
+                "do_sample": True if args.temperature > 0 else False,
                 "top_p": args.top_p,
                 "temperature": args.temperature,
                 "repitition_penalty": args.repetition_penalty,

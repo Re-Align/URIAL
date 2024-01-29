@@ -6,6 +6,8 @@ URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with 
 
 <img src="docs/intro.png" width="80%" style="margin: auto">
 
+
+
 ## URIAL Prompts 
 
  
@@ -95,6 +97,13 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 ```
 </details> -->
 
+
+
+## Evaluation 
+
+### AlpacaEval (fine-grained pairwise comparisons)
+
+![Alt text](docs/alpaca_eval-pairwise.png)
 
 ## Evaluation with Just-Eval 
 

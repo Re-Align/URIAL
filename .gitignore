@@ -1,3 +1,4 @@
+evaluate/results
 vllm_outputs/
 *_results/
 result_dirs/
@@ -170,3 +171,7 @@ cython_debug/
 #.idea/
 data/list-instruct.json
 data/list-instruct.jsonl
+evaluate/results/70b_test.multi.json
+evaluate/results/gpt4.ref=gpt4_turbo.multi.json
+evaluate/results/Llama-2-70b-hf-URIAL.ref=gpt-3.5-turbo-0301.multi.json
+evaluate/results/Llama-2-70b-hf-URIAL.ref=llama-2-70b-chat-hf.multi.json

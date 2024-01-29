@@ -32,6 +32,8 @@ def apply_template(chat_history, model_name, urial=None):
             conv = get_conv_template("zephyr")
         elif "llama-2" in model_name.lower():
             conv = get_conv_template("llama-2")
+            conv.set_system_message("""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
+\n\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""")
         elif "mixtral" in model_name.lower() or "mistral" in model_name.lower():
             conv = get_conv_template("mistral")
         elif "yi" in model_name.lower() and "chat" in model_name.lower():
@@ -112,8 +114,8 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
         for ind in range(len(outputs)):
             output_item = {}
             output_item["instruction"] = chat_history[ind][0]
-            output_item["output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
-            output_item["generator"] = args.model_name
+            output_item["output"] = [clear_output(outputs[ind][x].rstrip(), args.model_name) for x in range(len(outputs[ind]))]
+            output_item["generator"] = f"{args.model_name}-URIAL" if args.urial else args.model_name
             output_item["dataset"] = metadata["dataset"][ind]
             output_item["model_input"] = model_inputs[ind]
             formatted_outputs.append(output_item)

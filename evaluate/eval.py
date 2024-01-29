@@ -60,7 +60,13 @@ def get_args():
 def parse_result(result_str, mode="json"): 
     result_str = result_str.strip()
     result_str = result_str.strip("```")
-    parsed_result = json.loads(result_str)
+    try:
+        result_str = result_str.replace("\\", "\\\\")
+        parsed_result = json.loads(result_str)
+    except Exception as e:
+        print(e)
+        raise Exception(f"Failed to parse the result: {result_str}")
+        exit()
     return parsed_result
                     
 def gpt_eval(results, args):
@@ -165,32 +171,36 @@ def placeholder_generation(args):
         instruction = item["instruction"] 
     
         o = item["output"][0] if type(item["output"]) == list else item["output"]
+        r = ref_item["output"][0] if type(ref_item["output"]) == list else ref_item["output"]
         # random decide which is A and which is B 
         d = {}
         # d["id"] = item["id"]
         d["input"] = instruction           
         d["model_output"] = item["output"]
-        d["ref_output"] =  ref_item["output"]
+        d["ref_output"] =  r
         d["generator"] = item["generator"] 
         d["ref_generator"] = ref_item["generator"] 
         d["eval_config"] = {"mode": args.mode, "gpt": args.model, "max_words": args.max_words_to_eval}
         
         ## Prompt composition for pairwise evaluation
-
-        if random.random() < 0.5:
-            A = o
-            B = ref_item["output"]
-            d["assignment"] = {"A": d["generator"], "B": d["ref_generator"]}
-        else:
-            A = ref_item["output"]
-            B = o
-            d["assignment"] = {"A": d["ref_generator"], "B": d["generator"]} 
-        prompt = eval_template
-        prompt = prompt.replace("{$instruction}", instruction)
-        prompt = prompt.replace("{$candidate_A}", A)
-        prompt = prompt.replace("{$candidate_B}", B)
-
-
+        if args.mode == "pairwise":
+            if random.random() < 0.5:
+                A = o
+                B = r
+                d["assignment"] = {"A": d["generator"], "B": d["ref_generator"]}
+            else:
+                A = r
+                B = o
+                d["assignment"] = {"A": d["ref_generator"], "B": d["generator"]} 
+            prompt = eval_template
+            prompt = prompt.replace("{$instruction}", instruction)
+            prompt = prompt.replace("{$candidate_A}", A)
+            prompt = prompt.replace("{$candidate_B}", B)
+        elif args.mode == "ref_score" or args.mode == "score":
+            prompt = eval_template
+            prompt = prompt.replace("{$instruction}", instruction)
+            prompt = prompt.replace("{$reference}", r)
+            prompt = prompt.replace("{$candidate}", o)
         d["prompt"] = prompt
         d["result"] = "N/A" 
         results.append(d)
