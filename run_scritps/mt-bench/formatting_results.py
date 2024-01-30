@@ -63,8 +63,8 @@ python run_scritps/mt-bench/formatting_results.py Yi-34B
 
 
 
-cd /home/yuchenl/FastChat/fastchat/llm_judge
-ls -lht /home/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/
+cd /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge
+ls -lht /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/
 /home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 2 --model-list Llama-2-70b-hf-URIAL-2k &
 /home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 2 --model-list Llama-2-7b-hf-URIAL-2k &
 /home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 2 --model-list Llama-2-13b-hf-URIAL-2k &

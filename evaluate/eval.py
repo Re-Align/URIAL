@@ -225,7 +225,4 @@ def main():
 if __name__ == "__main__": 
     main()
     
-
-"""
-https://raw.githubusercontent.com/tatsu-lab/alpaca_eval/main/results/text_davinci_003/model_outputs.json
-"""
+ 
