@@ -24,7 +24,12 @@ def apply_template(chat_history, model_name, urial=None):
         urial_prompt = dataset["text"][0]
     for chats in tqdm(chat_history, desc="Applying template", disable=True):
         if urial:
-            conv = get_conv_template("urial")
+            if "inst_help_v5" in urial:
+                conv = get_conv_template("urial_v5")
+            elif  "inst_help_v6" in urial:
+                conv = get_conv_template("urial_v6")
+            else:
+                conv = get_conv_template("urial_backticks")
             conv.set_system_message(urial_prompt)
         elif "tulu" in model_name.lower():
             conv = get_conv_template("tulu")
@@ -103,8 +108,11 @@ def load_eval_data(args, data_name=None, model_name=None):
 
 
 
-def clear_output(output, model_name): 
-    pass 
+def clear_output(output, model_name, urial=None): 
+    if urial:
+        output = output.replace("```", "")
+    output = output.replace("<|endoftext|>", " ")
+    output = output.strip()
     return output
 
 
@@ -114,7 +122,7 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
         for ind in range(len(outputs)):
             output_item = {}
             output_item["instruction"] = chat_history[ind][0]
-            output_item["output"] = [clear_output(outputs[ind][x].rstrip(), args.model_name) for x in range(len(outputs[ind]))]
+            output_item["output"] = [clear_output(outputs[ind][x].rstrip(), args.model_name, args.urial) for x in range(len(outputs[ind]))]
             output_item["generator"] = f"{args.model_name}-URIAL" if args.urial else args.model_name
             output_item["dataset"] = metadata["dataset"][ind]
             output_item["model_input"] = model_inputs[ind]
@@ -124,7 +132,7 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
             output_item = {}
             output_item["id"] = ind
             output_item["instruction"] = chat_history[ind][0]
-            output_item["output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
+            output_item["output"] = clear_output(outputs[ind][0].rstrip(), args.model_name, args.urial)
             output_item["generator"] = args.model_name
             output_item["dataset"] = metadata["dataset"][ind]
             output_item["source_id"] = metadata["source_id"][ind]
@@ -136,7 +144,7 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
             output_item = {}
             output_item["question_id"] = metadata["question_id"][ind]
             output_item["category"] = metadata["category"][ind]
-            output_item[f"turn{args.mt_turn}_output"] = clear_output(outputs[ind][0].rstrip(), args.model_name)
+            output_item[f"turn{args.mt_turn}_output"] = clear_output(outputs[ind][0].rstrip(), args.model_name, args.urial)
             output_item["model_id"] = args.model_name
             output_item["turn_id"] = args.mt_turn
             output_item["model_input"] = model_inputs[ind]

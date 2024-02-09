@@ -6,7 +6,6 @@ import urllib.request
 from tqdm import tqdm
 import json
 import os  
-from vllm import LLM, SamplingParams
 from unified_utils import load_eval_data, save_outputs
 from unified_utils import openai_chat_request, retry_handler
 from models import DecoderOnlyModelManager
@@ -37,7 +36,7 @@ def parse_args():
     parser.add_argument('--end_index',default=-1, type=int) # -1 means to the end of the list 
     parser.add_argument('--filepath',default="auto", type=str)  
     parser.add_argument('--overwrite', action='store_true')
-    
+    parser.add_argument('--no_repeat_ngram_size', default=0, type=int)
     parser.add_argument('--hf_bf16', action='store_true')
     parser.add_argument('--hf_gptq', action='store_true')
     return parser.parse_args()
@@ -52,6 +51,7 @@ if __name__ == "__main__":
     if args.tokenizer_name == "auto":
         args.tokenizer_name = args.model_name
     if args.engine == "vllm":
+        from vllm import LLM, SamplingParams
         llm = LLM(model=args.model_name, tokenizer=args.tokenizer_name, tensor_parallel_size=args.tensor_parallel_size, download_dir=args.download_dir, dtype=args.dtype, tokenizer_mode=args.tokenizer_mode)        
     elif args.engine == "openai":
         pass
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     stop_words = []
     include_stop_str_in_output = True  
     if args.urial is not None:
-        stop_words = ["# Query", "# User", "User:"]
+        stop_words = ["# Query", "# User"]
         include_stop_str_in_output = False
     stop_token_ids = []
     if "yi-" in args.model_name.lower() and "chat" in args.model_name.lower():
@@ -113,7 +113,7 @@ if __name__ == "__main__":
     
     todo_inputs = model_inputs[num_skipped:]
     
-    if args.engine == "vllm":
+    if args.engine == "vllm": 
         sampling_params = SamplingParams(top_p=args.top_p, temperature=args.temperature, repetition_penalty=args.repetition_penalty, max_tokens=args.max_tokens, 
                                          stop=stop_words, stop_token_ids=stop_token_ids, include_stop_str_in_output=include_stop_str_in_output, n=args.num_outputs)
         for cur_id in tqdm(range(0, len(todo_inputs), args.batch_size), desc=f"Generating {args.model_name} from {args.start_index} to {args.end_index}"):
@@ -133,6 +133,7 @@ if __name__ == "__main__":
                 "repitition_penalty": args.repetition_penalty,
                 "eof_strings": "|".join(stop_words),
                 "max_output_tokens": args.max_tokens,
+                "no_repeat_ngram_size": args.no_repeat_ngram_size,
             }
             batch_outputs = llm.infer_generate(batch_inputs, args=sampling_params)
             outputs.extend(batch_outputs) # TODO: enbale multiple generation 

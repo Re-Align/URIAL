@@ -29,6 +29,7 @@ class SeparatorStyle(IntEnum):
     DEEPSEEK_CHAT = auto()
     METAMATH = auto()
     URIAL = auto() 
+    URIAL_V6 = auto()
 
 
 @dataclasses.dataclass
@@ -247,13 +248,27 @@ class Conversation:
             ret = system_prompt
             for role, message in self.messages:
                 # if role == self.roles[0]: 
-                ret += "\n\n"
+                ret += " \n"
                 # else:
                 #     ret += "\n"
                 if message:
+                    if role == self.roles[0]:
+                        ret += "\n"
                     ret += role + "\n" + self.sep + "\n"  + message  + "\n"+ self.sep2 + "\n"
                 else:
                     ret += role + "\n" + self.sep + "\n" 
+            return ret
+        elif self.sep_style == SeparatorStyle.URIAL_V6:
+            ret = system_prompt
+            for role, message in self.messages:
+                # if role == self.roles[0]: 
+                ret += "\n\n"
+                # else:
+                #     ret += "\n"
+                if message: 
+                    ret += role + "\n" + message.strip("\n") + "\n"
+                else:
+                    ret += role + "\n" 
             return ret
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
@@ -1395,13 +1410,13 @@ register_conv_template(
 # Reference: https://github.com/Re-Align/URIAL/
 register_conv_template(
     Conversation(
-        name="urial_v1",
+        name="urial_backticks",
         system_template="{system_message}",
         system_message="",
         roles=("# Query:", "# Answer:"),
         sep_style=SeparatorStyle.URIAL,
-        # sep="```", sep2="```",
-        sep="", sep2="",
+        sep="```", sep2="```",
+        # sep="", sep2="",
         stop_str="# Query",
     )
 )
@@ -1409,7 +1424,7 @@ register_conv_template(
 
 register_conv_template(
     Conversation(
-        name="urial", # v3 and v5
+        name="urial_v5", # v3 and v5
         system_template="{system_message}",
         system_message="",
         roles=("# User:", "# Assistant:"),
@@ -1419,6 +1434,19 @@ register_conv_template(
         stop_str="# User",
     )
 )
+
+register_conv_template(
+    Conversation(
+        name="urial_v6", # v3 and v5
+        system_template="{system_message}",
+        system_message="",
+        roles=("# User:", "# Assistant:"),
+        sep_style=SeparatorStyle.URIAL_V6,
+        sep="", sep2="",
+        stop_str="# User",
+    )
+)
+
 
 
 register_conv_template(
@@ -1439,8 +1467,8 @@ register_conv_template(
 if __name__ == "__main__":
     from datasets import load_dataset
     print("-- URIAL template --")
-    conv = get_conv_template("urial")
-    urial = "inst_1k_v3" 
+    conv = get_conv_template("urial_v6")
+    urial = "inst_help_v6-1k" 
     # url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
     url = f"urial_prompts/{urial}.txt"
     print(f"Loading URIAL prompt from {url}")

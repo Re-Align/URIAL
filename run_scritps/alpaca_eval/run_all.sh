@@ -14,6 +14,10 @@ bash run_scritps/alpaca_eval/llama-7b-urial.sh inst_help_v5-1k 1 1 0.3
 bash run_scritps/alpaca_eval/llama-70b-urial.sh inst_help_v5-1k 1 1 0.3
 bash run_scritps/alpaca_eval/mistral-urial.sh inst_help_v5-1k 1 1 0.3
 
+bash run_scritps/alpaca_eval/olmo-7b-urial.sh inst_help_v5-1k 1.2 1 0.7
+
+bash run_scritps/alpaca_eval/olmo-7b-urial.sh inst_1k_v3 1.2 1 0.7
+
 python run_scritps/alpaca_eval/urial_filter.py \
         result_dirs/alpaca_eval/vllm_urial-inst_help_v5-1k/rp=1_N=3/Llama-2-7b-hf.json \
         result_dirs/alpaca_eval/urial/llama-7b-urial.inst_help_v5-1k.json

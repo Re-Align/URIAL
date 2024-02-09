@@ -8,17 +8,16 @@ import os
 # directory_path = 'result_dirs/retrieve+prefix_ref/K=5_N=2_ae/'
 directory_path = sys.argv[1]
 prefix = sys.argv[2] 
+overwrite = "yes"
+if len(sys.argv) > 3:
+    overwrite = sys.argv[3]
 
 target_filepath = os.path.join(directory_path, prefix+".json")
 
 
-if os.path.exists(target_filepath):
-    print("Exists:", target_filepath)
-    # ask user if they want to overwrite
-    if input("Overwrite? (y/n)") == "y":
-        pass
-    else:
-        exit()
+if overwrite == "no" and os.path.exists(target_filepath):
+    print("Exists:", target_filepath, "no overwrite!")
+    exit()
 
 # Get a list of all json files in the directory
 json_files = []

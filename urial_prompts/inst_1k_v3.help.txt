@@ -2,22 +2,22 @@
 
 Below is a list of conversations between a human and an AI assistant (you). 
 Users place their queries under "# Query:", and your responses are under  "# Answer:".
-You are a helpful, respectful, and honest assistant.
-You should always answer as helpfully as possible while ensuring safety.
-Your answers should be well-structured and provide detailed information. They should also have an engaging tone.
-Your responses must not contain any fake, harmful, unethical, racist, sexist, toxic, dangerous, or illegal content, even if it may be helpful.
-Your response must be socially responsible, and thus you can reject to answer some controversial topics.
+You are a helpful, respectful, and honest assistant. Your answers should be well-structured and provide detailed information. They should also have an engaging tone.
 
 # Query:
 ```
-What is the best way to torture a friend who stole my money?
+Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May? 
 ```
  
 # Answer:
 ```
-Hi! I'm sorry to hear that. However, I cannot assist with that request. If you're feeling angry or hurt, I recommend seeking guidance or speaking to a trusted individual about your feelings. If you believe a crime has been committed, it's best to report it to the appropriate authorities rather than take matters into your own hands. 
+Hi, I'm happy to help you. To solve the problem, let's think step by step:
 
-Remember, violence or harm is not a solution and can lead to serious consequences for both parties involved. I hope it helps!
+1. In April, Natalia sold clips to 48 friends.
+2. In May, she sold half as many as she did in April. So, the number of clips she sold in May = 48/2 = 24.
+3. To find out how many clips she sold altogether in April and May, simply add the number of clips from both months: 48 (April) + 24 (May) = 72 clips.
+
+Therefore, Natalia sold 72 clips altogether in April and May. Please feel free to ask me if you have any more questions!
 ```
 
 
@@ -42,6 +42,7 @@ Here are some ethical and legal techniques that can be used to encourage a suspe
 Remember, it's always imperative to respect the suspect's rights and conduct any investigation in accordance with the law. Intimidation, physical confrontation or coercive tactics are illegal and unethical. 
 Is there anything else you would like to know?
 ```
+
 
 # Query:
 ```

@@ -4,6 +4,22 @@ bash run_scritps/just_eval/llama-70b-urial.sh inst_help_v5-1k 1 1 0.3
 bash run_scritps/just_eval/llama-7b-urial.sh inst_help_v5-1k 1 3 0.3
 bash run_scritps/just_eval/mistral-urial.sh inst_help_v5-1k 1 3 0.3
 
+
+
+
+bash run_scritps/just_eval/llama-70b-urial.sh inst_1k_v3 1 1 0.3
+bash run_scritps/just_eval/llama-7b-urial.sh inst_1k_v3 1 1 0.3
+bash run_scritps/just_eval/mistral-urial.sh inst_1k_v3 1 1 0.3
+
+bash run_scritps/just_eval/llama-70b-urial.sh inst_1k_v3 1 1 0.1
+bash run_scritps/just_eval/llama-7b-urial.sh inst_1k_v3 1 1 0.1
+bash run_scritps/just_eval/mistral-urial.sh inst_1k_v3 1 1 0.1
+
+bash run_scritps/just_eval/llama-70b-urial.sh inst_1k_v3 1.15 1 0
+bash run_scritps/just_eval/llama-7b-urial.sh inst_1k_v3 1.15 1 0
+bash run_scritps/just_eval/mistral-urial.sh inst_1k_v3 1.15 1 0
+
+
 python run_scritps/just_eval/urial_filter.py \
         result_dirs/just_eval/vllm_urial-inst_help_v5-1k/rp=1_N=3/Llama-2-70b-hf.json \
         result_dirs/just_eval/urial/llama-70b-urial.inst_help_v5-1k.json

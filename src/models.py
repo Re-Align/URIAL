@@ -229,7 +229,7 @@ class DecoderOnlyModelManager(ModelManager):
             args_ = Args()
             args_.__setattr__("num_outputs", args.get("num_outputs", 1))
             args_.__setattr__("beam_size", args.get("beam_size", 1))
-            args_.__setattr__("max_output_tokens", args.get("max_output_tokens", 128))
+            args_.__setattr__("max_output_tokens", args.get("max_output_tokens", 2048))
             args_.__setattr__("do_sample", args.get("do_sample", False)) 
             args_.__setattr__("top_p", args.get("top_p", 1.0)) 
             args_.__setattr__("top_k", args.get("top_k", None))
@@ -294,7 +294,19 @@ class DecoderOnlyModelManager(ModelManager):
         decoded_outputs = [self.tokenizer.decode(y[prefix_length:], skip_special_tokens=self.special_token_flags[1]) for y in outputs]    
         
         decoded_outputs = [decoded_outputs[j:j+n] for j in range(0, len(decoded_outputs), n)]
+
+        cleaned_decoded_outputs = []
+        eof_strings.sort(key=len, reverse=True)
+        for outputs in decoded_outputs:
+            stripped_outputs = []
+            for o in outputs:
+                for eof in eof_strings:
+                    o = o.rstrip(eof).strip()
+                stripped_outputs.append(o)
+            cleaned_decoded_outputs.append(stripped_outputs)
         
+        decoded_outputs = cleaned_decoded_outputs
+
         if self.adapt_mode in ["prefix", "retrieve+prefix"]:
             decoded_outputs_with_prefixes = []
             for prefix, outputs in zip(prefixes, decoded_outputs):

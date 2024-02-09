@@ -9,7 +9,7 @@ CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --dtype bfloat16 \
     --data_name mt-bench \
     --mt_turn 1 \
-    --top_p 1 --temperature 0 --batch_size 8 --max_tokens 2048 \
+    --top_p 1 --temperature $temp --batch_size 8 --max_tokens 2048 \
     --filepath $output_dir/tulu-2-dpo-70b.turn1.json \
     --overwrite 
 
@@ -22,6 +22,6 @@ CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --data_name mt-bench \
     --mt_turn 2 \
     --mt_turn1_result $output_dir/tulu-2-dpo-70b.turn1.json \
-    --top_p 1 --temperature 0 --batch_size 8 --max_tokens 2048 \
+    --top_p 1 --temperature $temp --batch_size 8 --max_tokens 2048 \
     --filepath $output_dir/tulu-2-dpo-70b.turn2.json \
     --overwrite 

@@ -1,4 +1,6 @@
 version=$1
+temp=${2:-0}
+rp=${3:-1}
 output_dir="result_dirs/mt-bench/vllm_urial-${version}/"
 mkdir -p $output_dir
 gpu=0,1,2,3
@@ -10,8 +12,8 @@ CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --dtype bfloat16 \
     --data_name mt-bench \
     --mt_turn 1 \
-    --top_p 1 --temperature 0 --repetition_penalty 1.15 --batch_size 8 --max_tokens 2048 \
-    --filepath $output_dir/rp=1.15/Mistral-7b-v0.1.turn1.json \
+    --top_p 1 --temperature $temp --repetition_penalty $rp --batch_size 8 --max_tokens 2048 \
+    --filepath $output_dir/rp=${rp}_temp=${temp}/Mistral-7b-v0.1.turn1.json \
     --overwrite 
 
 
@@ -23,7 +25,7 @@ CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --dtype bfloat16 \
     --data_name mt-bench \
     --mt_turn 2 \
-    --mt_turn1_result $output_dir/rp=1.15/Mistral-7b-v0.1.turn1.json \
-    --top_p 1 --temperature 0 --repetition_penalty 1.15 --batch_size 8 --max_tokens 2048 \
-    --filepath $output_dir/rp=1.15/Mistral-7b-v0.1.turn2.json \
+    --mt_turn1_result $output_dir/rp=${rp}_temp=${temp}/Mistral-7b-v0.1.turn1.json \
+    --top_p 1 --temperature $temp --repetition_penalty $rp --batch_size 8 --max_tokens 2048 \
+    --filepath $output_dir/rp=${rp}_temp=${temp}/Mistral-7b-v0.1.turn2.json \
     --overwrite 
