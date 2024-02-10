@@ -72,7 +72,7 @@ python run_scritps/mt-bench/formatting_results.py phi-2
 
 cd /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge
 ls -lht /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/
-# /home/yuchenl/.conda/envs/fschat/bin/python
+# /home/yuchenl/.conda/envs/mb/bin/python
 version=inst_1k_v4.help-config=rp=1_temp=0.7
 python gen_judgment.py  --parallel 8 --model-list Llama-2-70b-hf-URIAL=${version} &
 python gen_judgment.py  --parallel 8 --model-list Mixtral-8x7B-v0.1-URIAL=${version} &

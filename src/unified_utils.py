@@ -72,7 +72,8 @@ def load_eval_data(args, data_name=None, model_name=None):
         dataset = load_dataset("re-align/just-eval-instruct", split="test") 
         metadata = {"dataset": [], "source_id": []}
     elif data_name == "mt-bench":
-        dataset = load_dataset("json", data_files="https://huggingface.co/spaces/lmsys/mt-bench/raw/main/data/mt_bench/question.jsonl", split="train")
+        # dataset = load_dataset("json", data_files="https://huggingface.co/spaces/lmsys/mt-bench/raw/main/data/mt_bench/question.jsonl", split="train")
+        dataset = load_dataset("json", data_files="run_scripts/mt-bench/question.jsonl", split="train")
         metadata = {"question_id": [], "category": []}        
         if args.mt_turn == 2:
             with open(args.mt_turn1_result, "r") as f:
@@ -148,6 +149,12 @@ def save_outputs(args, id_strs, outputs, chat_history, metadata, model_inputs, f
             output_item["model_id"] = args.model_name
             output_item["turn_id"] = args.mt_turn
             output_item["model_input"] = model_inputs[ind]
+            output_item["configs"] = {
+                "repetition_penalty": args.repetition_penalty,
+                "temperature": args.temperature,
+                "top_p": args.top_p,
+                "max_tokens": args.max_tokens,
+            }
             formatted_outputs.append(output_item)
     with open(filepath, "w") as f:
         json.dump(formatted_outputs, f, indent=2)
