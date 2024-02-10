@@ -57,15 +57,15 @@ print(f"/home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 
 
 
 """
-python run_scritps/mt-bench/formatting_results.py Llama-2-70b-hf
-python run_scritps/mt-bench/formatting_results.py Mixtral-8x7B-v0.1
-python run_scritps/mt-bench/formatting_results.py Mistral-7b-v0.1
-python run_scritps/mt-bench/formatting_results.py Llama-2-7b-hf
-python run_scritps/mt-bench/formatting_results.py Llama-2-13b-hf
-python run_scritps/mt-bench/formatting_results.py Yi-6B
-python run_scritps/mt-bench/formatting_results.py Yi-34B
-python run_scritps/mt-bench/formatting_results.py olmo
-python run_scritps/mt-bench/formatting_results.py phi-2
+python run_scripts/mt-bench/formatting_results.py Llama-2-70b-hf
+python run_scripts/mt-bench/formatting_results.py Mixtral-8x7B-v0.1
+python run_scripts/mt-bench/formatting_results.py Mistral-7b-v0.1
+python run_scripts/mt-bench/formatting_results.py Llama-2-7b-hf
+python run_scripts/mt-bench/formatting_results.py Llama-2-13b-hf
+python run_scripts/mt-bench/formatting_results.py Yi-6B
+python run_scripts/mt-bench/formatting_results.py Yi-34B
+python run_scripts/mt-bench/formatting_results.py olmo
+python run_scripts/mt-bench/formatting_results.py phi-2
 
 
 
@@ -87,8 +87,8 @@ python gen_judgment.py  --parallel 1 --model-list Mistral-7b-v0.1-URIAL=${versio
 
 
 
-# python run_scritps/mt-bench/formatting_results.py tulu-2-70b
-# python run_scritps/mt-bench/formatting_results.py yi-34B-chat
+# python run_scripts/mt-bench/formatting_results.py tulu-2-70b
+# python run_scripts/mt-bench/formatting_results.py yi-34B-chat
 
 /home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 8 --model-list tulu-2-70b
 /home/yuchenl/.conda/envs/fschat/bin/python gen_judgment.py  --parallel 8 --model-list yi-34B-chat
