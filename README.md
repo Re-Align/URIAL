@@ -6,9 +6,12 @@
 
 > **🛜 Website**: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).
 
-URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three constant stylistic examples and a system prompt for achieving a comparable performance with SFT/RLHF.
+URIAL is a simple, *tuning-free* alignment method, URIAL (**U**ntuned LLMs with **R**estyled **I**n-context **AL**ignment). URIAL achieves effective alignment purely through in-context learning (ICL), requiring as few as three **__constant__** stylistic examples and a system prompt.
+It's a strong baseline method for LLM alignment and shows comparable performance to fine-tuning based alignment. 
+Apart from that, URIAL can also be used to study the science of LLMs, helping to understand alignment in a more controlled and interpretable manner.
 
-<img src="docs/intro.png" width="80%" style="margin: auto">
+<!-- align center the image -->
+<img src="docs/intro.png" width="80%" style="margin: auto;" > 
 
 
 
