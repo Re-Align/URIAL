@@ -3,8 +3,8 @@ temp=${2:-0}
 rp=${3:-1}
 output_dir="result_dirs/mt-bench/urial_bench/"
 mkdir -p $output_dir
-gpu=2,3
-tps=2
+gpu=0,1,2,3
+tps=4
 CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --urial $version \
     --download_dir /net/nfs/s2-research/llama2/ \

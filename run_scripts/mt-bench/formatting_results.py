@@ -12,17 +12,18 @@ if model_name.lower() in ["tulu-2-70b", "tulu-2-dpo-70b", "yi-34b-chat"]:
     turn2_path = f"result_dirs/mt-bench/aligned/{model_name}.turn2.json"
     output_folder = f"result_dirs/mt-bench/aligned/"
     model_id = model_name
-else:
-    # version="inst_1k_v3.help"
-    # config_str = "rp=1.15_temp=0"
-    # version="inst_help_v5-1k"
-    # config_str = "rp=1.15_temp=0"
-    version="inst_1k_v4.help"
-    config_str = "rp=1_temp=0.7"
-    turn1_path = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/{model_name}.turn1.json"
-    turn2_path = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/{model_name}.turn2.json"
-    output_folder = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/"
-    model_id = f"{model_name}-URIAL={version}-config={config_str}"
+else: 
+    # version="inst_1k_v4.help"
+    # config_str = "rp=1_temp=0.7"
+    # turn1_path = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/{model_name}.turn1.json"
+    # turn2_path = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/{model_name}.turn2.json"
+    # output_folder = f"result_dirs/mt-bench/vllm_urial-{version}/{config_str}/"
+    # model_id = f"{model_name}-URIAL={version}-config={config_str}"
+ 
+    output_folder = f"result_dirs/mt-bench/urial_bench/"
+    model_id = f"{model_name}-URIAL-0210v1"
+    turn1_path = f"result_dirs/mt-bench/urial_bench/{model_name}.turn1.json"
+    turn2_path = f"result_dirs/mt-bench/urial_bench/{model_name}.turn2.json"
 
 turn1_results = json.load(open(turn1_path))
 turn2_results = json.load(open(turn2_path))
@@ -68,6 +69,20 @@ python run_scripts/mt-bench/formatting_results.py olmo
 python run_scripts/mt-bench/formatting_results.py phi-2
 
 
+version="0210v1"
+python gen_judgment.py  --parallel 8 --model-list Llama-2-70b-hf-URIAL-${version} 
+python gen_judgment.py  --parallel 8 --model-list Mixtral-8x7B-v0.1-URIAL-${version} 
+python gen_judgment.py  --parallel 8 --model-list olmo-URIAL-${version}  
+python gen_judgment.py  --parallel 8 --model-list phi-2-URIAL-${version}  
+python gen_judgment.py  --parallel 8 --model-list Llama-2-13b-hf-URIAL-${version}
+python gen_judgment.py  --parallel 8 --model-list Llama-2-7b-hf-URIAL-${version} 
+python gen_judgment.py  --parallel 8 --model-list Yi-6B-URIAL-${version} 
+python gen_judgment.py  --parallel 8 --model-list Yi-34B-URIAL-${version}
+python gen_judgment.py  --parallel 8 --model-list Mistral-7b-v0.1-URIAL-${version}
+
+
+
+###
 
 
 cd /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge

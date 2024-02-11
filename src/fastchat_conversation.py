@@ -248,15 +248,14 @@ class Conversation:
             ret = system_prompt
             for role, message in self.messages:
                 # if role == self.roles[0]: 
-                ret += " \n"
+                # ret += "\n"
                 # else:
                 #     ret += "\n"
                 if message:
-                    if role == self.roles[0]:
-                        ret += "\n"
-                    ret += role + "\n" + self.sep + "\n"  + message  + "\n"+ self.sep2 + "\n"
+                    # if role == self.roles[0]:
+                    ret += "\n" + role + "\n" + self.sep + "\n"  + message  + "\n"+ self.sep2 + "\n"
                 else:
-                    ret += role + "\n" + self.sep + "\n" 
+                    ret += "\n" + role + "\n" + self.sep + "\n" 
             return ret
         elif self.sep_style == SeparatorStyle.URIAL_V6:
             ret = system_prompt
@@ -1467,8 +1466,10 @@ register_conv_template(
 if __name__ == "__main__":
     from datasets import load_dataset
     print("-- URIAL template --")
-    conv = get_conv_template("urial_v6")
-    urial = "inst_help_v6-1k" 
+    # conv = get_conv_template("urial_v6")
+    # urial = "inst_help_v6-1k" 
+    conv = get_conv_template("urial_backticks")
+    urial = "inst_1k_v4.help" 
     # url = f"https://raw.githubusercontent.com/Re-Align/URIAL/main/urial_prompts/{urial}.txt"
     url = f"urial_prompts/{urial}.txt"
     print(f"Loading URIAL prompt from {url}")
