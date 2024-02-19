@@ -108,27 +108,40 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 
 ## Evaluation 
 
-### AlpacaEval (fine-grained pairwise comparisons)
+### AlpacaEval (fine-grained pairwise evaluation)
 
 ![Alt text](docs/alpaca_eval-pairwise.png)
 
-## Evaluation with Just-Eval 
+Scripts: `URIAL/run_scripts/alpaca_eval/*.sh`
+
+
+### MT-Bench
+
+Scripts: 
+
+
+
+### Just-Eval 
+
+<summary> show more </summary>
+
+<details>
 
 Please find more details about our evaluation here: [https://github.com/Re-Align/just-eval](https://github.com/Re-Align/just-eval)
 
-### Installation of Just-Eval 
+#### Installation of Just-Eval 
 ```bash
 pip install git+https://github.com/Re-Align/just-eval.git
 export OPENAI_API_KEY=<your secret key>
 ```
 
-### Reformatting output data 
+#### Reformatting output data 
 For example, if the output data is `result_dirs/urial/inst_1k/Mistral-7B-v0.1.json`, then run the following command to reformat the output data to `result_dirs/urial/inst_1k/Mistral-7B-v0.1.to_eval.json`.
 ```bash  
 python src/scripts/reformat.py result_dirs/urial/inst_1k/Mistral-7B-v0.1.json
 ```
 
-### Run Scoring 
+#### Run Scoring 
 ```bash
 to_eval_file="result_dirs/urial/inst_1k/Mistral-7B-v0.1.to_eval.json"
 run_name="Mistral-URIAL"
@@ -150,6 +163,8 @@ just_eval \
         --output_file "result_dirs/just-eval_results/${run_name}.score_safety.chatgpt.json"  
 ```
 
+</details>
+
 <!-- 
 ## Analyze with Token-distribution Analysis 
 
@@ -160,10 +175,12 @@ just_eval \
 ## Citation 
 
 ```bibtex
-@article{Lin2023ReAlign,
-    author = {Bill Yuchen Lin and Abhilasha Ravichander and Ximing Lu and Nouha Dziri and Melanie Sclar and Khyathi Chandu and Chandra Bhagavatula and Yejin Choi},
-    journal = {ArXiv preprint},
-    title = {The Unlocking Spell on Base LLMs: Rethinking Alignment via In-Context Learning},
-    year = {2023}
+@inproceedings{
+    Lin2024ReAlign,
+    title={The Unlocking Spell on Base LLMs: Rethinking Alignment via In-Context Learning},
+    author={Bill Yuchen Lin and Abhilasha Ravichander and Ximing Lu and Nouha Dziri and Melanie Sclar and Khyathi Chandu and Chandra Bhagavatula and Yejin Choi},
+    booktitle={International Conference on Learning Representations},
+    year={2024},
+    url={https://arxiv.org/abs/2312.01552}
 }
 ```
