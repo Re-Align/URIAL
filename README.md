@@ -145,6 +145,9 @@ Suggested versions:
  
 <img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="100%">
 
+
+<details><summary> Show Tables</summary>
+
 ------------------------------------------------------------------------------------------------------------------------
 `mistral-urial (#char=1105.7) VS Mistral-7B-Instruct-v0.1 (#char=1074.1) ⬇️`
 | model               |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
@@ -170,9 +173,11 @@ Suggested versions:
 | Llama-2-70b-urial Tie:  |         42.24 |        81.12 |   15.53 |        39.38 |     68.57 |    97.89 |
 | Llama-2-70b-urial Lose: |         22.48 |         9.44 |   36.27 |        24.60 |     11.68 |     1.49 |
 
-Scripts for URIAL/Aligned inference: [`run_scripts/alpaca_eval`](run_scripts/alpaca_eval/)
+</details>
 
-Evaluation: 
+**Scripts for URIAL/Aligned inference**: [`run_scripts/alpaca_eval`](run_scripts/alpaca_eval/)
+
+**Evaluation**: 
 - [`evaluate/README.md`](evaluate/README.md)
 - [Template for evaluation](evaluate/eval_template_pairwise.md)
 
