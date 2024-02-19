@@ -8,7 +8,7 @@ import json
 import os  
 from unified_utils import load_eval_data, save_outputs
 from unified_utils import openai_chat_request, retry_handler
-from models import DecoderOnlyModelManager
+from hf_models import DecoderOnlyModelManager
 
 def parse_args():
     parser = argparse.ArgumentParser() 
