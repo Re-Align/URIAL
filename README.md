@@ -45,7 +45,7 @@ CUDA_VISIBLE_DEVICES=0 python src/unified_infer.py \
 For more details, please refer to  [`URIAL/src/unified_infer.py`](src/unified_infer.py).  Note that you can use the same method to run inference with aligned LLMs (by not setting `--urial`) too and also for other datasets. You could customize your own data/models in [`URIAL/src/unified_utils.py`](src/unified_utils.py).
 
 
-<details><summary> legacy method </summary>
+<!-- <details><summary> legacy method </summary>
 
 
 Below we show an example of how to run inference experiments with URIAL prompts on :
@@ -55,7 +55,7 @@ Below we show an example of how to run inference experiments with URIAL prompts 
 ```bash
 version="inst_1k"
 output_dir="result_dirs/urial/${version}/"
-python src/infer.py \
+python src/legacy/infer.py \
         --interval 1 \
         --model_path "mistralai/Mistral-7B-v0.1" \
         --bf16 \
@@ -72,7 +72,7 @@ Supported models include:
 - `TheBloke/Llama-2-70B-GPTQ` with `--gptq` flag.
 - other similar models on huggingface.co
 
-</details>
+</details> -->
 
 
 
@@ -114,16 +114,17 @@ python src/scripts/merge_results.py $output_dir ${model_name}
  
 <details>
 <summary> 🖼️ Click here to see a figure for the illustration of URIAL and other tuning-free Alignment methods.</summary>
-<img src="https://allenai.github.io/re-align/images/urial_methods.png">
+<img src="https://allenai.github.io/re-align/images/urial_methods.png" style="margin: auto;" width="80%">
 </details>
 
 
-### Suggested version
+### Versions
 As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
 
-<details><summary> Suggested version</summary>
-- [`inst_1k.txt`](urial_prompts/inst_1k.txt)
-</details>
+Suggested versions:
+- [`inst_1k_v4.help`](urial_prompts/inst_1k_v4.help.txt) (no refusal; K=3 examples; ~1k tokens)
+- [`inst_1k_v4`](urial_prompts/inst_1k_v4.txt) (safer;  K=3 examples; ~1k tokens)
+
 
 <details>
 <summary> Previous versions (used in Just-Eval experiments in the paper).</summary>
@@ -140,8 +141,9 @@ As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prom
 ## Evaluation 
 
 ### AlpacaEval (fine-grained pairwise evaluation)
+ 
+<img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="80%">
 
-![Alt text](docs/alpaca_eval-pairwise.png)
 
 We use URIAL prompt (3 examples~=1K tokens) as prefix ()
 
