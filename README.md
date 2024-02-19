@@ -1,4 +1,4 @@
-# URIAL: Untuned LLMs with Restyled In-context Alignment 
+# URIAL: Untuned LLMs with Restyled In-context Alignment (ICLR'24: Rethinking Alignment via In-Context Learning)
 
 > This is part of the **Rethinking Alignment** (Re-Align) project by AI2 Mosaic. 
 
