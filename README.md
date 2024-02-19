@@ -42,7 +42,7 @@ CUDA_VISIBLE_DEVICES=0 python src/unified_infer.py \
     --output_folder $output_dir/
 ```
 
-For more details, please refer to  [`URIAL/src/unified_infer.py`](src/unified_infer.py) and [`URIAL/src/unified_utils.py`](src/unified_utils.py).  Note that you can use the same method to run inference with aligned LLMs too and also for MT-bench and Just-Eval datasets.
+For more details, please refer to  [`URIAL/src/unified_infer.py`](src/unified_infer.py).  Note that you can use the same method to run inference with aligned LLMs (by not setting `--urial`) too and also for other datasets. You could customize your own data/models in [`URIAL/src/unified_utils.py`](src/unified_utils.py).
 
 
 <details><summary> legacy method </summary>
@@ -109,7 +109,7 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 
 
 
-### URIAL: Un
+### URIAL: ICL with constant prompts
 
  
 <details>
@@ -118,15 +118,21 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 </details>
 
 
-### More 
+### Suggested version
 As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
 
+<details><summary> Suggested version</summary>
+- [`inst_1k.txt`](urial_prompts/inst_1k.txt)
+</details>
+
+<details>
+<summary> Previous versions (used in Just-Eval experiments in the paper).</summary>
 - `URIAL-main (K=3; 1k tokens)`  -> [`inst_1k.txt`](urial_prompts/inst_1k.txt)
 - `URIAL-main (K=8; 2k tokens)`  -> [`inst_2k.txt`](urial_prompts/inst_2k.txt)
 - `URIAL-main (K=1; 0.5k tokens)`  -> [`inst_1shot.txt`](urial_prompts/inst_1shot.txt)
 - `URIAL-ablation (K=3; 1k tokens)`  -> [`inst_1k_v2.txt`](urial_prompts/inst_1k_v2.txt)
 - `URIAL-ablation (K=0; 0.15k tokens)`  -> [`inst_only.txt`](urial_prompts/inst_only.txt)
-
+</details>
 <!-- - [`Retrieval ICL`](urial_prompts/inst_only.txt) -->
 
 
@@ -137,7 +143,7 @@ As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prom
 
 ![Alt text](docs/alpaca_eval-pairwise.png)
 
-Scripts: `URIAL/run_scripts/alpaca_eval/*.sh`
+We use URIAL prompt (3 examples~=1K tokens) as prefix ()
 
 
 ### MT-Bench
