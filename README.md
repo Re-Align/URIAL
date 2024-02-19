@@ -146,8 +146,7 @@ Suggested versions:
 <img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="100%">
 
 ------------------------------------------------------------------------------------------------------------------------
-
-                                mistral-urial (#char=1105.7) VS Mistral-7B-Instruct-v0.1 (#char=1074.1)
+`mistral-urial (#char=1105.7) VS Mistral-7B-Instruct-v0.1 (#char=1074.1) ⬇️`
 | model               |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
 |---------------------|---------------|--------------|---------|--------------|-----------|----------|
 | mistral-urial Win:  |         31.93 |        12.30 |   42.61 |        35.90 |     22.36 |     1.12 |
@@ -155,7 +154,8 @@ Suggested versions:
 | mistral-urial Lose: |         29.19 |        14.66 |   37.76 |        32.42 |     17.02 |     0.50 |
 ------------------------------------------------------------------------------------------------------------------------
 
-                                Llama-2-7b-urial (#char=1236.1) VS Llama-2-7b-chat-hf (#char=1455.7)
+
+`Llama-2-7b-urial (#char=1236.1) VS Llama-2-7b-chat-hf (#char=1455.7) ⬇️`
 | model                  |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
 |------------------------|---------------|--------------|---------|--------------|-----------|----------|
 | Llama-2-7b-urial Win:  |         42.11 |        15.78 |   48.32 |        42.86 |     34.53 |     1.61 |
@@ -163,7 +163,7 @@ Suggested versions:
 | Llama-2-7b-urial Lose: |         37.02 |        17.64 |   40.99 |        33.04 |     24.72 |     2.48 |
 ------------------------------------------------------------------------------------------------------------------------
 
-                                Llama-2-70b-urial (#char=1086.5) VS Llama-2-70b-chat-hf (#char=1524.0)
+`Llama-2-70b-urial (#char=1086.5) VS Llama-2-70b-chat-hf (#char=1524.0) ⬇️`
 | model                   |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
 |-------------------------|---------------|--------------|---------|--------------|-----------|----------|
 | Llama-2-70b-urial Win:  |         35.28 |         9.44 |   48.20 |        36.02 |     19.75 |     0.62 |
