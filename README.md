@@ -185,21 +185,26 @@ Suggested versions:
 ### MT-Bench
 
 
+
 <img src="docs/mtbench.png" style="margin: auto;" width="100%">
+
+
+### URIAL-MT Bench Scores (base LLMs + same URIAL prompts)
 
 | model             |   Turn 1 |   Turn 2 |   Overall |
 |:------------------|---------:|---------:|----------:|
-| `gpt-4`             |     8.96 |     9.03 |      8.99 |
-| `gpt-3.5-turbo`     |     8.07 |     7.81 |      7.94 |
-| `Llama-2-70b-hf`    |     7.61 |     6.61 |      7.11 |
-| `Mixtral-8x7B-v0.1` |     7.69 |     6.19 |      6.94 |
-| `Mistral-7b-v0.1 `  |     7.49 |     5.86 |      6.67 |
-| `Yi-34B`            |     7.19 |     6.16 |      6.67 |
-| `phi-2`             |     7.04 |     4.66 |      5.85 |
-| `Llama-2-13b-hf `   |     6.27 |     4.41 |      5.34 |
-| `Yi-6B `            |     5.96 |     3.99 |      4.97 |
-| `Llama-2-7b-hf `    |     5.75 |     3.91 |      4.83 |
-| `olmo-7b`              |     3.95 |     2.86 |      3.41 |
+| `openai/gpt-4`             |     8.96 |     9.03 |      8.99 |
+| `openai/gpt-3.5-turbo`     |     8.07 |     7.81 |      7.94 |
+|--------------------------------|--------|--------|---------|
+| `meta-llama/Llama-2-70b-hf`    |     7.61 |     6.61 |      7.11 |
+| `mistralai/Mixtral-8x7B-v0.1` |     7.69 |     6.19 |      6.94 |
+| `mistralai/Mistral-7b-v0.1 `  |     7.49 |     5.86 |      6.67 |
+| `01-ai/Yi-34B`            |     7.19 |     6.16 |      6.67 |
+| `microsoft/phi-2` (2.7B)            |     7.04 |     4.66 |      5.85 |
+| `meta-llama/Llama-2-13b-hf `   |     6.27 |     4.41 |      5.34 |
+| `01-ai/Yi-6B `            |     5.96 |     3.99 |      4.97 |
+| `meta-llama/Llama-2-7b-hf `    |     5.75 |     3.91 |      4.83 |
+| `allenai/OLMo-7B`              |     3.95 |     2.86 |      3.41 |
 
 
 
