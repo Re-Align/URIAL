@@ -126,13 +126,14 @@ Suggested versions:
 - [`inst_1k_v4`](urial_prompts/inst_1k_v4.txt.md) (safer;  K=3 examples; ~1k tokens)
 
 
-<details>
-<summary> Previous versions (used in Just-Eval experiments in the paper).</summary>
+<details><summary> Previous versions (used for the experiments in the arXiv version).</summary>
+
 - `URIAL-main (K=3; 1k tokens)`  -> [`inst_1k.txt`](urial_prompts/inst_1k.txt)
 - `URIAL-main (K=8; 2k tokens)`  -> [`inst_2k.txt`](urial_prompts/inst_2k.txt)
 - `URIAL-main (K=1; 0.5k tokens)`  -> [`inst_1shot.txt`](urial_prompts/inst_1shot.txt)
 - `URIAL-ablation (K=3; 1k tokens)`  -> [`inst_1k_v2.txt`](urial_prompts/inst_1k_v2.txt)
 - `URIAL-ablation (K=0; 0.15k tokens)`  -> [`inst_only.txt`](urial_prompts/inst_only.txt)
+
 </details>
 <!-- - [`Retrieval ICL`](urial_prompts/inst_only.txt) -->
 
@@ -144,13 +145,41 @@ Suggested versions:
  
 <img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="100%">
 
+------------------------------------------------------------------------------------------------------------------------
 
-We use URIAL prompt (3 examples~=1K tokens) as prefix ()
+                                mistral-urial (1105.7) VS Mistral-7B-Instruct-v0.1 (1074.1)
+| model                                       |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
+|---------------------------------------------|---------------|--------------|---------|--------------|-----------|----------|
+| mistral-urial win Mistral-7B-Instruct-v0.1  |         31.93 |        12.30 |   42.61 |        35.90 |     22.36 |     1.12 |
+| mistral-urial tie Mistral-7B-Instruct-v0.1  |         38.88 |        73.04 |   19.63 |        31.68 |     60.62 |    98.39 |
+| mistral-urial lose Mistral-7B-Instruct-v0.1 |         29.19 |        14.66 |   37.76 |        32.42 |     17.02 |     0.50 |
+------------------------------------------------------------------------------------------------------------------------
+
+                                Llama-2-7b-urial (1236.1) VS Llama-2-7b-chat-hf (1455.7)
+| model                                    |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
+|------------------------------------------|---------------|--------------|---------|--------------|-----------|----------|
+| Llama-2-7b-urial win Llama-2-7b-chat-hf  |         42.11 |        15.78 |   48.32 |        42.86 |     34.53 |     1.61 |
+| Llama-2-7b-urial tie Llama-2-7b-chat-hf  |         20.87 |        66.58 |   10.68 |        24.10 |     40.75 |    95.90 |
+| Llama-2-7b-urial lose Llama-2-7b-chat-hf |         37.02 |        17.64 |   40.99 |        33.04 |     24.72 |     2.48 |
+------------------------------------------------------------------------------------------------------------------------
+
+                                Llama-2-70b-urial (1086.5) VS Llama-2-70b-chat-hf (1524.0)
+| model                                      |   helpfulness |   factuality |   depth |   engagement |   clarity |   safety |
+|--------------------------------------------|---------------|--------------|---------|--------------|-----------|----------|
+| Llama-2-70b-urial win Llama-2-70b-chat-hf  |         35.28 |         9.44 |   48.20 |        36.02 |     19.75 |     0.62 |
+| Llama-2-70b-urial tie Llama-2-70b-chat-hf  |         42.24 |        81.12 |   15.53 |        39.38 |     68.57 |    97.89 |
+| Llama-2-70b-urial lose Llama-2-70b-chat-hf |         22.48 |         9.44 |   36.27 |        24.60 |     11.68 |     1.49 |
+
+Scripts for URIAL/Aligned inference: [`run_scripts/alpaca_eval`](run_scripts/alpaca_eval/)
+
+Evaluation: 
+- [`evaluate/README.md`](evaluate/README.md)
+- [Template for evaluation](evaluate/eval_template_pairwise.md)
 
 
 ### MT-Bench
 
-Scripts: 
+
 
 
 

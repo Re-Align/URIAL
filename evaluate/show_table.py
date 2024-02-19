@@ -89,13 +89,13 @@ for config in configs:
     print(tabulate(tables, headers=["model",]+aspects, tablefmt="github", floatfmt=".2f"))
 
  
-    print(f"""
-    aspects = {aspects}
-    title = '{title}'
-    wins = {win_row[1:]}
-    ties = {tie_row[1:]}
-    loses = {lose_row[1:]}
-    """)
+    # print(f"""
+    # aspects = {aspects}
+    # title = '{title}'
+    # wins = {win_row[1:]}
+    # ties = {tie_row[1:]}
+    # loses = {lose_row[1:]}
+    # """)
 
 
 # print(tabulate(win_rows, headers=["model",]+aspects, tablefmt="github", floatfmt=".2f"))
