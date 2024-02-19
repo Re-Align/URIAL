@@ -123,9 +123,9 @@ Scripts:
 
 ### Just-Eval 
 
-<summary> show more </summary>
 
-<details>
+
+<details><summary> show more </summary>
 
 Please find more details about our evaluation here: [https://github.com/Re-Align/just-eval](https://github.com/Re-Align/just-eval)
 
