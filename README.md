@@ -142,7 +142,7 @@ Suggested versions:
 
 ### AlpacaEval (fine-grained pairwise evaluation)
  
-<img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="80%">
+<img src="docs/alpaca_eval-pairwise.png" style="margin: auto;" width="100%">
 
 
 We use URIAL prompt (3 examples~=1K tokens) as prefix ()
