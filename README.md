@@ -42,7 +42,7 @@ CUDA_VISIBLE_DEVICES=0 python src/unified_infer.py \
     --output_folder $output_dir/
 ```
 
-For more details, please refer to  `URIAL/src/unified_infer.py` and `URIAL/src/unified_utils.py`.  Note that you can use the same method to run inference with aligned LLMs too and also for MT-bench and Just-Eval datasets.
+For more details, please refer to  [`URIAL/src/unified_infer.py`](src/unified_infer.py) and [`URIAL/src/unified_utils.py`](src/unified_utils.py).  Note that you can use the same method to run inference with aligned LLMs too and also for MT-bench and Just-Eval datasets.
 
 
 <details><summary> legacy method </summary>
