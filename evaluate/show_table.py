@@ -68,9 +68,9 @@ for config in configs:
     win_rates = {x:win_counts[x]/total_dict[x] for x in aspects}
     lose_rates = {x:lose_counts[x]/total_dict[x] for x in aspects}
     
-    win_row = [f"{config['name']} win {config['ref']}"]
-    tie_row = [f"{config['name']} tie {config['ref']}"]
-    lose_row = [f"{config['name']} lose {config['ref']}"]
+    win_row = [f"{config['name']} Win:"]
+    tie_row = [f"{config['name']} Tie:"]
+    lose_row = [f"{config['name']} Lose:"]
     for aspect in aspects:
         win_row.append((win_rates[aspect])*100)
         tie_row.append((tie_rates[aspect])*100)
