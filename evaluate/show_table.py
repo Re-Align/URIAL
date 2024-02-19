@@ -18,62 +18,7 @@ configs = [
             "name": "Llama-2-70b-urial",
             "filepath": "evaluate/results/ref=Llama-2-70b-chat-hf/Llama-2-70b-urial.json",
             'ref': "Llama-2-70b-chat-hf"
-        },  
-        # {
-        #     "name": "Llama-2-70b-urial-1k",
-        #     "filepath": "evaluate/results/ref=Llama-2-70b-chat-hf/Llama-2-70b-urial-1k.json",
-        #     'ref': "Llama-2-70b-chat-hf"
-        # }, 
-        # {
-        #     "name": "Llama-2-7b-urial-1k",
-        #     "filepath": "evaluate/results/ref=Llama-2-7b-chat-hf/Llama-2-7b-urial-1k.json",
-        #     'ref': "Llama-2-7b-chat-hf"
-        # },
-
-        # {
-        #     "name": "Llama-2-70b-urial",
-        #     "filepath": "evaluate/results/ref=tulu-2-70b/Llama-2-70b-urial.json",
-        #     'ref': "tulu-2-70b"
-        # },
-        {
-            "name": "Llama-2-70b-urial",
-            "filepath": "evaluate/results/ref=tulu-2-dpo-70b/Llama-2-70b-urial.json",
-            'ref': "tulu-2-dpo-70b"
         },
-
-        # {
-        #     "name": "Llama-2-70b-urial",
-        #     "filepath": "evaluate/results/ref=gpt-3.5-turbo-0301/Llama-2-70b-urial.json",
-        #     'ref': "gpt-3.5-turbo-0301"
-        # },
-
-        # {
-        #     "name": "tulu-2-dpo-70b",
-        #     "filepath": "evaluate/results/ref=gpt-3.5-turbo-0301/tulu-2-dpo-70b.json",
-        #     'ref': "gpt-3.5-turbo-0301"
-        # },
-
-        # {
-        #     "name": "Llama-2-70b-urial",
-        #     "filepath": "evaluate/results/ref=gpt4_turbo/Llama-2-70b-urial.json",
-        #     'ref': "gpt4_turbo"
-        # },
-
-        # {
-        #     "name": "tulu-2-dpo-70b",
-        #     "filepath": "evaluate/results/ref=gpt4_turbo/tulu-2-dpo-70b.json",
-        #     'ref': "gpt4_turbo"
-        # },  
-        # {
-        #     "name": "Llama-2-70b-urial-2k",
-        #     "filepath": "evaluate/results/ref=Llama-2-70b-chat-hf/Llama-2-70b-urial-2k.json",
-        #     'ref': "Llama-2-70b-chat-hf"
-        # }, 
-        # {
-        #     "name": "Llama-2-7b-urial-2k",
-        #     "filepath": "evaluate/results/ref=Llama-2-7b-chat-hf/Llama-2-7b-urial-2k.json",
-        #     'ref': "Llama-2-7b-chat-hf"
-        # }
     ]
 
 
