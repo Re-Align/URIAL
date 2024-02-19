@@ -3,7 +3,7 @@ import sys
 import random, string
 import os 
 
-answer_dir = "/home/yuchenl/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/" 
+answer_dir = "/net/nfs/mosaic/yuchenl/FastChat/data/mt_bench/model_answer/" 
 
 model_name = sys.argv[1]
 suffix = sys.argv[2]

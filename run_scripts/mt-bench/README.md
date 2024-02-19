@@ -34,8 +34,8 @@ python run_scripts/mt-bench/formatting_results.py phi-2 ${suffix}
 ```bash 
 suffix="0210v1"
 # git clone our modified version of FastChat from [url]
-cd ~/FastChat/fastchat/llm_judge
-ls -lht ~/FastChat/fastchat/llm_judge/data/mt_bench/model_answer/ # make sure the model answer is there
+cd /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge/
+ls -lht /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge//data/mt_bench/model_answer/ # make sure the model answer is there
 # conda activate mb
 # python --> /home/yuchenl/.conda/envs/mb/bin/python
 python gen_judgment.py  --parallel 8 --model-list Llama-2-70b-hf-URIAL-${suffix} 
