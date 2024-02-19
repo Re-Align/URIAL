@@ -122,8 +122,8 @@ python src/scripts/merge_results.py $output_dir ${model_name}
 As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
 
 Suggested versions:
-- [`inst_1k_v4.help`](urial_prompts/inst_1k_v4.help.txt) (no refusal; K=3 examples; ~1k tokens)
-- [`inst_1k_v4`](urial_prompts/inst_1k_v4.txt) (safer;  K=3 examples; ~1k tokens)
+- [`inst_1k_v4.help`](urial_prompts/inst_1k_v4.help.txt.md) (no refusal; K=3 examples; ~1k tokens)
+- [`inst_1k_v4`](urial_prompts/inst_1k_v4.txt.md) (safer;  K=3 examples; ~1k tokens)
 
 
 <details>
