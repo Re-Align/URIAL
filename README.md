@@ -1,8 +1,8 @@
-# URIAL: Tuning-Free Alignment via In-Context Learning (ICLR 2024)
+# URIAL: Untuned LLMs with Restyled In-context Alignment 
 
-> This is part of the Rethinking Alignment (Re-Align) project by AI2 Mosaic. 
+> This is part of the **Rethinking Alignment** (Re-Align) project by AI2 Mosaic. 
 
-> **📑 Paper**: "The Unlocking Spell on Base LLMs: Rethinking Alignment via In-Context Learning" (**ICLR 2024**).
+> **📑 Paper**: "[The Unlocking Spell on Base LLMs: Rethinking Alignment via In-Context Learning](https://arxiv.org/abs/2312.01552)" (**ICLR 2024**).
 
 > **🛜 Website**: [https://allenai.github.io/re-align/](https://allenai.github.io/re-align/index.html).
 
@@ -15,37 +15,38 @@ Apart from that, URIAL can also be used to study the science of LLMs, helping to
 
 
 
-## URIAL Prompts 
-
- 
-<details>
-<summary> 🖼️ Click here to see a figure for the illustration of URIAL and other tuning-free Alignment methods.</summary>
-<img src="https://allenai.github.io/re-align/images/urial_methods.png">
-</details>
-
-
-### Content
-As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
-
-- `URIAL-main (K=3; 1k tokens)`  -> [`inst_1k.txt`](urial_prompts/inst_1k.txt)
-- `URIAL-main (K=8; 2k tokens)`  -> [`inst_2k.txt`](urial_prompts/inst_2k.txt)
-- `URIAL-main (K=1; 0.5k tokens)`  -> [`inst_1shot.txt`](urial_prompts/inst_1shot.txt)
-- `URIAL-ablation (K=3; 1k tokens)`  -> [`inst_1k_v2.txt`](urial_prompts/inst_1k_v2.txt)
-- `URIAL-ablation (K=0; 0.15k tokens)`  -> [`inst_only.txt`](urial_prompts/inst_only.txt)
-
-<!-- - [`Retrieval ICL`](urial_prompts/inst_only.txt) -->
-
-
-
 ## Installation
 
 ```bash
-conda create -n re_align python=3.10
-conda activate re_align
+conda create -n urial python=3.10
+conda activate urial
 pip install -r requirements.txt
 ```
 
 ## URIAL Inference
+
+An example script for running mistral (base) with urial prompts for `alpaca_eval`:
+
+```bash  
+urial="inst_1k_v4" # urial prompt name -->  `urial_prompts/{urial}.txt`
+output_dir="result_dirs/alpaca_eval/vllm_urial=${urial}/"  
+CUDA_VISIBLE_DEVICES=0 python src/unified_infer.py \
+    --urial $urial \
+    --engine vllm \
+    --model_name "mistralai/Mistral-7b-v0.1" \
+    --tensor_parallel_size 1 \
+    --dtype bfloat16 \
+    --data_name "alpaca_eval" \
+    --top_p 1.0 --temperature 0.3 --repetition_penalty 1.1 \
+    --batch_size 16 --max_tokens 2048 \
+    --output_folder $output_dir/
+```
+
+For more details, please refer to  `URIAL/src/unified_infer.py` and `URIAL/src/unified_utils.py`.  Note that you can use the same method to run inference with aligned LLMs too and also for MT-bench and Just-Eval datasets.
+
+
+<details><summary> legacy method </summary>
+
 
 Below we show an example of how to run inference experiments with URIAL prompts on :
 - Base LLM: `mistralai/Mistral-7B-v0.1`
@@ -71,7 +72,7 @@ Supported models include:
 - `TheBloke/Llama-2-70B-GPTQ` with `--gptq` flag.
 - other similar models on huggingface.co
 
-👀 More will come with the support of [vLLM](https://github.com/vllm-project/vllm). Please stay tuned!
+</details>
 
 
 
@@ -103,6 +104,30 @@ done
 python src/scripts/merge_results.py $output_dir ${model_name}
 ```
 </details> -->
+
+
+
+
+
+### URIAL: Un
+
+ 
+<details>
+<summary> 🖼️ Click here to see a figure for the illustration of URIAL and other tuning-free Alignment methods.</summary>
+<img src="https://allenai.github.io/re-align/images/urial_methods.png">
+</details>
+
+
+### More 
+As discussed [here](https://allenai.github.io/re-align/urial.html), a URIAL Prompt consists of K-shot stylistic in-context examples and a system prompt. The folder [`urial_prompts`](urial_prompts/) contains:
+
+- `URIAL-main (K=3; 1k tokens)`  -> [`inst_1k.txt`](urial_prompts/inst_1k.txt)
+- `URIAL-main (K=8; 2k tokens)`  -> [`inst_2k.txt`](urial_prompts/inst_2k.txt)
+- `URIAL-main (K=1; 0.5k tokens)`  -> [`inst_1shot.txt`](urial_prompts/inst_1shot.txt)
+- `URIAL-ablation (K=3; 1k tokens)`  -> [`inst_1k_v2.txt`](urial_prompts/inst_1k_v2.txt)
+- `URIAL-ablation (K=0; 0.15k tokens)`  -> [`inst_only.txt`](urial_prompts/inst_only.txt)
+
+<!-- - [`Retrieval ICL`](urial_prompts/inst_only.txt) -->
 
 
 
