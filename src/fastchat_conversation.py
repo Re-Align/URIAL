@@ -7,6 +7,27 @@ import dataclasses
 from enum import auto, IntEnum
 from typing import List, Any, Dict, Union, Tuple
 
+def map_to_conv(model_name):
+    if "gemma" in model_name.lower() and "-it" in model_name.lower():
+        conv = get_conv_template("gemma")
+    elif "tulu" in model_name.lower():
+        conv = get_conv_template("tulu")
+    elif "zephyr" in model_name.lower():
+        conv = get_conv_template("zephyr")
+    elif "llama-2" in model_name.lower() and "-chat-hf" in model_name.lower():
+        conv = get_conv_template("llama-2")
+        conv.set_system_message("""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""")
+    elif "mixtral" in model_name.lower() or "mistral" in model_name.lower():
+        conv = get_conv_template("mistral")
+    elif "yi" in model_name.lower() and "chat" in model_name.lower():
+        conv = get_conv_template("Yi-34b-chat")
+    elif "vicuna" in model_name.lower():
+        conv = get_conv_template("vicuna_v1.1")
+    else:
+        raise ValueError(f"Model {model_name} is not supported.")
+
+    return conv
+
 class SeparatorStyle(IntEnum):
     """Separator styles."""
 
@@ -1461,7 +1482,17 @@ register_conv_template(
     )
 )
 
-
+# Gemma
+# reference: https://huggingface.co/google/gemma-7b-it?text=%3Cstart_of_turn%3Euser%0AHow+does+the+brain+work%3F%3Cend_of_turn%3E%0A%3Cstart_of_turn%3Emodel
+register_conv_template(
+    Conversation(
+        name="gemma",
+        roles=("<start_of_turn>user", "<start_of_turn>model"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<end_of_turn>",
+        stop_str="<end_of_turn>",
+    )
+)
 
 if __name__ == "__main__":
     from datasets import load_dataset

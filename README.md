@@ -202,6 +202,7 @@ How to run: [`run_scripts/mt-bench/README.md`](run_scripts/mt-bench/)
 | `mistralai/Mixtral-8x7B-v0.1` |     7.69 |     6.19 |      6.94 |
 | `mistralai/Mistral-7b-v0.1 `  |     7.49 |     5.86 |      6.67 |
 | `01-ai/Yi-34B`            |     7.19 |     6.16 |      6.67 |
+| `google/gemma-7b`          |     6.97 |     5.04 |      6.00 |
 | `microsoft/phi-2` (2.7B)            |     7.04 |     4.66 |      5.85 |
 | `meta-llama/Llama-2-13b-hf `   |     6.27 |     4.41 |      5.34 |
 | `01-ai/Yi-6B `            |     5.96 |     3.99 |      4.97 |
