@@ -207,7 +207,7 @@ How to run: [`run_scripts/mt-bench/README.md`](run_scripts/mt-bench/)
 | `meta-llama/Llama-2-13b-hf `   |     6.27 |     4.41 |      5.34 |
 | `01-ai/Yi-6B `            |     5.96 |     3.99 |      4.97 |
 | `meta-llama/Llama-2-7b-hf `    |     5.75 |     3.91 |      4.83 |
-  `google/gemma-7b`          |     5.08 |     2.86 |      3.97 |
+  `google/gemma-2b`          |     5.08 |     2.86 |      3.97 |
 | `allenai/OLMo-7B`              |     3.95 |     2.86 |      3.41 |
 
 
