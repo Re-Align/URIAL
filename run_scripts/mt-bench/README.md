@@ -12,6 +12,7 @@ bash run_scripts/mt-bench/llama-7b-urial.sh $version 0 1.15
 bash run_scripts/mt-bench/yi-34b-urial.sh $version 0 1.15
 bash run_scripts/mt-bench/yi-6b-urial.sh $version 0 1.15 
 bash run_scripts/mt-bench/gemma-7b-urial.sh $version 0.5 1 
+bash run_scripts/mt-bench/gemma-2b-urial.sh $version 0.5 1 
 ```
 
 ## Formatting Results
@@ -28,6 +29,7 @@ python run_scripts/mt-bench/formatting_results.py Yi-34B ${suffix}
 python run_scripts/mt-bench/formatting_results.py olmo ${suffix} 
 python run_scripts/mt-bench/formatting_results.py phi-2 ${suffix} 
 python run_scripts/mt-bench/formatting_results.py gemma-7b ${suffix}
+python run_scripts/mt-bench/formatting_results.py gemma-2b ${suffix}
 ```
 
 
@@ -51,4 +53,5 @@ python gen_judgment.py  --parallel 8 --model-list Yi-34B-URIAL-${suffix}
 python gen_judgment.py  --parallel 8 --model-list Mistral-7b-v0.1-URIAL-${suffix}
 
 python gen_judgment.py  --parallel 8 --model-list gemma-7b-URIAL-${suffix}  
+python gen_judgment.py  --parallel 8 --model-list gemma-2b-URIAL-${suffix}  
 ```
