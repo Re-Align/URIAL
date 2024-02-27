@@ -6,7 +6,13 @@ import argparse
 import pandas as pd
 import json
 from tabulate import tabulate
+from datasets import load_dataset
 
+question_id_to_category = {}
+
+dataset = load_dataset("philschmid/mt-bench")
+for item in dataset["train"]:
+    question_id_to_category[item["question_id"]] = item["category"]
 
 PREFIX_DIR = "/net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge/"
 
@@ -16,6 +22,7 @@ def print_df_with_tabulate(df, sort_by='score', ascending=False):
 
 
 def display_result_single(args):
+    global question_id_to_category
     if args.input_file is None:
         input_file = (
             f"{PREFIX_DIR}/data/{args.bench_name}/model_judgment/{args.judge_model}_single.jsonl"
@@ -33,12 +40,13 @@ def display_result_single(args):
         item = json.loads(line)
         uqid = f"{item['model']}_{item['turn']}_{item['question_id']}"
         if uqid not in covered:
+            item["category"] = question_id_to_category[item["question_id"]]
             deduped_items.append(item)
             covered.add(uqid)
     df_all = pd.DataFrame(deduped_items)
-
+    print(df_all)
     # df_all = pd.read_json(input_file, lines=True)
-    df = df_all[["model", "score", "turn"]]
+    df = df_all[["question_id", "model", "score", "turn"]]
     df = df[df["score"] != -1]
     
     model_list = (
@@ -85,7 +93,7 @@ def display_result_single(args):
     final_table = pd.merge(merged_scores, overall_score, on='model')
 
 
-    final_table['model'] = final_table['model'].str.replace("-URIAL-0210v1", "")
+    # final_table['model'] = final_table['model'].str.replace("-URIAL-0210v1", "")
 
     # Sort the table by overall score
     final_table_sorted = final_table.sort_values(by='Overall', ascending=False)
@@ -97,6 +105,48 @@ def display_result_single(args):
     # Convert the DataFrame to a table in Markdown format without the index
     markdown_table = tabulate(final_table_sorted, headers='keys', tablefmt='pipe', showindex=False, floatfmt=".2f")
     print(markdown_table) 
+
+
+
+    # Reintegrate category information into `df`
+    # This assumes there is a way to map each row in `df` back to its category, possibly using a separate mapping if `question_id` is available in `df` 
+
+    # Calculate two-turn averages for each category
+    df['category'] = df['question_id'].map(question_id_to_category)
+
+    category_scores = df.groupby(['model', 'category'])['score'].mean().reset_index()
+
+    # Pivot to get category averages for each model
+    category_pivot = category_scores.pivot(index='model', columns='category', values='score').reset_index()
+
+    # Rename columns to clarify they are category averages
+    category_pivot.columns = [f"{col}" if col != 'model' else col for col in category_pivot.columns]
+
+    # Merge with the final table
+    final_table_with_categories = pd.merge(final_table, category_pivot, on='model', how='outer')
+
+    # Sort, print, or export the extended table
+    final_table_sorted_with_categories = final_table_with_categories.sort_values(by='Overall', ascending=False)
+    final_table_sorted_with_categories['model'] = final_table_sorted_with_categories["model"].str.replace("-URIAL-0210v1", "")
+
+    # Print the extended table
+    print("\n########## Extended Full Table with Category Averages ##########")
+    markdown_table_with_categories = tabulate(final_table_sorted_with_categories, headers='keys', tablefmt='pipe', showindex=False, floatfmt=".2f")
+    print(markdown_table_with_categories)
+
+    # Convert the DataFrame to a list of dictionaries (one dictionary per row)
+    records = final_table_sorted_with_categories.to_dict(orient='records')
+
+    # Specify the file path for the JSONL file
+    file_path = 'run_scripts/mt-bench/urial_bench.jsonl'
+
+    # Write each dictionary to a separate line in the file
+    with open(file_path, 'w') as file:
+        for record in records:
+            json_str = json.dumps(record)
+            file.write(json_str + '\n')
+
+    print(f"Table saved to {file_path}")
 
 
 def display_result_pairwise(args):
