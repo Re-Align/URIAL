@@ -52,7 +52,7 @@ if __name__ == "__main__":
         args.tokenizer_name = args.model_name
     if args.engine == "vllm":
         from vllm import LLM, SamplingParams
-        llm = LLM(model=args.model_name, tokenizer=args.tokenizer_name, tensor_parallel_size=args.tensor_parallel_size, download_dir=args.download_dir, dtype=args.dtype, tokenizer_mode=args.tokenizer_mode)        
+        llm = LLM(model=args.model_name, tokenizer=args.tokenizer_name, tensor_parallel_size=args.tensor_parallel_size, download_dir=args.download_dir, dtype=args.dtype, tokenizer_mode=args.tokenizer_mode, trust_remote_code=True)        
     elif args.engine == "openai":
         pass
     elif args.engine == "hf":

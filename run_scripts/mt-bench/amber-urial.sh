@@ -1,5 +1,5 @@
-pretty_name="phi-2-vllm"
-model_name="microsoft/phi-2"
+pretty_name="amber"
+model_name="LLM360/Amber"
 version=$1
 temp=${2:-0}
 rp=${3:-1}

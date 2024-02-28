@@ -1,5 +1,5 @@
-pretty_name="phi-2-vllm"
-model_name="microsoft/phi-2"
+pretty_name="olmo-7b-vllm"
+model_name="allenai/OLMo-7B"
 version=$1
 temp=${2:-0}
 rp=${3:-1}
@@ -8,6 +8,7 @@ output_dir="result_dirs/mt-bench/urial_bench/"
 mkdir -p $output_dir
 gpu=${4:-"0"}
 tsp=${5:-1}
+
 CUDA_VISIBLE_DEVICES=$gpu python src/unified_infer.py \
     --urial $version \
     --download_dir $CACHE_DIR \

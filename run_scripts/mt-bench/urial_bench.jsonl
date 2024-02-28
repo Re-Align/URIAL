@@ -4,6 +4,7 @@
 {"model": "Mixtral-8x7B-v0.1", "Turn 1": 7.69375, "Turn 2": 6.1875, "Overall": 6.940625, "coding": 5.3, "extraction": 7.05, "humanities": 9.2, "math": 4.85, "reasoning": 5.3, "roleplay": 7.4, "stem": 8.225, "writing": 8.2}
 {"model": "Mistral-7b-v0.1", "Turn 1": 7.4875, "Turn 2": 5.8625, "Overall": 6.675, "coding": 4.6, "extraction": 7.75, "humanities": 9.075, "math": 3.4, "reasoning": 4.9, "roleplay": 7.65, "stem": 8.275, "writing": 7.75}
 {"model": "Yi-34B", "Turn 1": 7.19375, "Turn 2": 6.15625, "Overall": 6.675, "coding": 3.85, "extraction": 6.8, "humanities": 8.475, "math": 4.8, "reasoning": 6.0, "roleplay": 7.75, "stem": 7.825, "writing": 7.9}
+{"model": "phi-2-vllm", "Turn 1": 7.16875, "Turn 2": 4.936708860759493, "Overall": 6.059748427672956, "coding": 4.55, "extraction": 5.3, "humanities": 8.65, "math": 3.35, "reasoning": 5.5, "roleplay": 6.625, "stem": 7.105263157894737, "writing": 7.45}
 {"model": "gemma-7b", "Turn 1": 6.96875, "Turn 2": 5.0375, "Overall": 6.003125, "coding": 3.95, "extraction": 6.25, "humanities": 8.825, "math": 4.35, "reasoning": 4.5, "roleplay": 6.25, "stem": 7.25, "writing": 6.65}
 {"model": "phi-2", "Turn 1": 7.0375, "Turn 2": 4.6625, "Overall": 5.85, "coding": 4.25, "extraction": 4.45, "humanities": 8.85, "math": 3.8, "reasoning": 4.55, "roleplay": 7.2, "stem": 7.0, "writing": 6.7}
 {"model": "Llama-2-13b-hf", "Turn 1": 6.26875, "Turn 2": 4.4125, "Overall": 5.340625, "coding": 2.8, "extraction": 4.7, "humanities": 8.3, "math": 2.85, "reasoning": 2.9, "roleplay": 6.625, "stem": 7.025, "writing": 7.525}
@@ -11,3 +12,7 @@
 {"model": "Llama-2-7b-hf", "Turn 1": 5.75, "Turn 2": 3.9125, "Overall": 4.83125, "coding": 1.65, "extraction": 3.4, "humanities": 8.075, "math": 1.6, "reasoning": 3.45, "roleplay": 7.475, "stem": 6.8, "writing": 6.2}
 {"model": "gemma-2b", "Turn 1": 5.08125, "Turn 2": 2.8625, "Overall": 3.971875, "coding": 1.8, "extraction": 3.1, "humanities": 5.65, "math": 3.3, "reasoning": 2.55, "roleplay": 5.7, "stem": 5.725, "writing": 3.95}
 {"model": "olmo", "Turn 1": 3.95, "Turn 2": 2.8625, "Overall": 3.40625, "coding": 1.65, "extraction": 2.45, "humanities": 4.9, "math": 1.25, "reasoning": 2.45, "roleplay": 5.3, "stem": 5.3, "writing": 3.95}
+{"model": "olmo-7b-vllm", "Turn 1": 4.61875, "Turn 2": 2.1375, "Overall": 3.378125, "coding": 1.25, "extraction": 2.75, "humanities": 5.4, "math": 1.45, "reasoning": 2.75, "roleplay": 4.55, "stem": 5.475, "writing": 3.4}
+{"model": "falcon-7b", "Turn 1": 4.09375, "Turn 2": 2.1, "Overall": 3.096875, "coding": 1.55, "extraction": 2.75, "humanities": 4.4, "math": 1.6, "reasoning": 2.8, "roleplay": 4.55, "stem": 4.425, "writing": 2.7}
+{"model": "mpt-7b", "Turn 1": 1.7375, "Turn 2": 1.25, "Overall": 1.49375, "coding": 1.0, "extraction": 1.55, "humanities": 1.75, "math": 1.0, "reasoning": 1.05, "roleplay": 1.9, "stem": 2.25, "writing": 1.45}
+{"model": "amber", "Turn 1": 1.5625, "Turn 2": 1.3164556962025316, "Overall": 1.440251572327044, "coding": 1.0, "extraction": 1.0, "humanities": 2.1, "math": 1.0, "reasoning": 1.4, "roleplay": 1.75, "stem": 1.7894736842105263, "writing": 1.5}
