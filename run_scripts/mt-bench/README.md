@@ -27,6 +27,8 @@ bash run_scripts/mt-bench/yi-34b-urial.sh $version 0 1.15
 bash run_scripts/mt-bench/yi-6b-urial.sh $version 0 1.15 
 bash run_scripts/mt-bench/gemma-7b-urial.sh $version 0.5 1 
 bash run_scripts/mt-bench/gemma-2b-urial.sh $version 0.5 1 
+bash run_scripts/mt-bench/mistral-7b-v2-urial.sh $version 0 1.15
+bash run_scripts/mt-bench/dbrx-urial.sh $version 0.5 1
 ```
 
 <details>
@@ -71,6 +73,9 @@ python run_scripts/mt-bench/formatting_results.py mpt-7b ${suffix}
 python run_scripts/mt-bench/formatting_results.py falcon-7b ${suffix} 
 python run_scripts/mt-bench/formatting_results.py amber ${suffix} 
 
+python run_scripts/mt-bench/formatting_results.py Mistral-7b-v0.2 ${suffix} 
+python run_scripts/mt-bench/formatting_results.py dbrx ${suffix} 
+
 
 # python run_scripts/mt-bench/formatting_results.py olmo ${suffix} 
 # python run_scripts/mt-bench/formatting_results.py phi-2 ${suffix} 
@@ -106,4 +111,16 @@ python gen_judgment.py  --parallel 8 --model-list phi-2-vllm-URIAL-${suffix}
 python gen_judgment.py  --parallel 8 --model-list mpt-7b-URIAL-${suffix}
 python gen_judgment.py  --parallel 8 --model-list falcon-7b-URIAL-${suffix}
 python gen_judgment.py  --parallel 8 --model-list amber-URIAL-${suffix}
+
+python gen_judgment.py  --parallel 8 --model-list Mistral-7b-v0.2-URIAL-${suffix}
+python gen_judgment.py  --parallel 8 --model-list dbrx-URIAL-${suffix}
+
+
+
+```
+
+```bash
+
+python run_scripts/mt-bench/show_results.py
+
 ```
