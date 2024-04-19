@@ -17,10 +17,13 @@ Apart from that, URIAL can also be used to study the science of LLMs, helping to
 
 ## Installation
 
-```bash
-conda create -n urial python=3.10
+```bash 
+conda create -n urial python=3.10  
 conda activate urial
-pip install -r requirements.txt
+pip install vllm 
+# conda create -p /net/nfs/mosaic/yuchenl/envs/urial python=3.10 
+# conda activate /net/nfs/mosaic/yuchenl/envs/urial
+pip install -r requirements.new.txt
 ```
 
 ## URIAL Inference

@@ -29,6 +29,11 @@ bash run_scripts/mt-bench/gemma-7b-urial.sh $version 0.5 1
 bash run_scripts/mt-bench/gemma-2b-urial.sh $version 0.5 1 
 bash run_scripts/mt-bench/mistral-7b-v2-urial.sh $version 0 1.15
 bash run_scripts/mt-bench/dbrx-urial.sh $version 0.5 1
+
+# bash run_scripts/mt-bench/olmo-7b-1.7-urial.sh $version 0 1.15 # vllm version not working now...
+bash run_scripts/mt-bench/olmo-1.7-hf-urial.sh $version 0 1.15 # hf version 
+bash run_scripts/mt-bench/llama3-8b-urial.sh $version 0 1.15
+bash run_scripts/mt-bench/llama3-70b-urial.sh $version 0 1.15
 ```
 
 <details>
@@ -76,6 +81,9 @@ python run_scripts/mt-bench/formatting_results.py amber ${suffix}
 python run_scripts/mt-bench/formatting_results.py Mistral-7b-v0.2 ${suffix} 
 python run_scripts/mt-bench/formatting_results.py dbrx ${suffix} 
 
+python run_scripts/mt-bench/formatting_results.py Llama-3-8B ${suffix} 
+python run_scripts/mt-bench/formatting_results.py Llama-3-70B ${suffix} 
+python run_scripts/mt-bench/formatting_results.py olmo-7b-v1.7-hf ${suffix} 
 
 # python run_scripts/mt-bench/formatting_results.py olmo ${suffix} 
 # python run_scripts/mt-bench/formatting_results.py phi-2 ${suffix} 
@@ -90,7 +98,7 @@ suffix="0210v1"
 # git clone our modified version of FastChat from [url]
 cd /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge/
 ls -lht /net/nfs/mosaic/yuchenl/FastChat/fastchat/llm_judge//data/mt_bench/model_answer/ # make sure the model answer is there
-# conda activate mb
+# conda activate /net/nfs/mosaic/yuchenl/envs/mb/
 # python --> /home/yuchenl/.conda/envs/mb/bin/python
 python gen_judgment.py  --parallel 8 --model-list Llama-2-70b-hf-URIAL-${suffix} 
 python gen_judgment.py  --parallel 8 --model-list Mixtral-8x7B-v0.1-URIAL-${suffix} 
@@ -114,6 +122,10 @@ python gen_judgment.py  --parallel 8 --model-list amber-URIAL-${suffix}
 
 python gen_judgment.py  --parallel 8 --model-list Mistral-7b-v0.2-URIAL-${suffix}
 python gen_judgment.py  --parallel 8 --model-list dbrx-URIAL-${suffix}
+
+python gen_judgment.py  --parallel 8 --model-list Llama-3-8B-URIAL-${suffix} 
+python gen_judgment.py  --parallel 8 --model-list Llama-3-70B-URIAL-${suffix} 
+python gen_judgment.py  --parallel 8 --model-list olmo-7b-v1.7-hf-URIAL-${suffix} 
 
 
 
